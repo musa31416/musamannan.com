@@ -85,16 +85,28 @@ it. Keep tailored variants out of the repo from the first commit.
 
 BEFORE YOU TELL ANYONE ABOUT THE SITE
 =====================================
-- The homepage stat says 7 journal papers and proceedings, but the
-  publication lists on /resume/ and /cv/ still show 5 entries. Add the
-  missing papers to both lists, or a reader who clicks through will notice
-  the mismatch. See "Publications" in resume/index.html and cv/index.html.
+- resume.pdf is OUT OF DATE. It still lists 5 publications. The HTML pages
+  now list 7, including the npj Advanced Manufacturing paper (in press) and
+  the Advanced Materials submission. Regenerate the PDF from your own
+  source before anyone downloads it, or the two documents contradict each
+  other. This is the highest-priority item on this list.
 - Add Honors/Awards and Service sections to the CV. Both are missing and
   their absence is visible on an academic CV.
+- The npj paper is listed with DOI 10.1038/s44334-026-00109-5. Confirm that
+  is correct, and add the volume and article number once it is online.
+- When the Advanced Materials paper is accepted, change "Under review" to
+  the journal details in resume/index.html and cv/index.html.
 - Decide on the public email. It is musa314@utdallas.edu in several places.
 - There is deliberately no phone number on the site. Scrapers harvest them.
 - LinkedIn, Google Scholar and ORCID are already wired in on all three
   pages and into the structured data on the homepage.
+
+PUBLICATION COUNT
+-----------------
+The homepage stat reads "7 Publications, 2 under review and 1 in press".
+That 7 is 5 journal articles, 1 conference proceedings, and 1 M.S. thesis.
+If you would rather the headline count exclude the thesis, change the stat
+in index.html to 6 and the label to "Journal papers and proceedings".
 
 
 UPDATING THE RESUME LATER
