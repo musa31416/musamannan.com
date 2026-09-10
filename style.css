@@ -479,3 +479,108 @@ section + section { border-top: 1px solid var(--border); }
   a { color: #000; text-decoration: none; }
   .reveal { opacity: 1 !important; transform: none !important; }
 }
+
+/* ---------- Authorship marquee ------------------------------------------ */
+
+.authorship {
+  background: var(--bg-2);
+  border-top: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.author-stats {
+  display: flex;
+  gap: 14px 46px;
+  flex-wrap: wrap;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.author-stats li { display: flex; flex-direction: column; gap: 2px; }
+
+.author-stats b {
+  font-size: 1.5rem;
+  font-weight: 660;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  line-height: 1.1;
+}
+
+.author-stats span {
+  font-family: var(--mono);
+  font-size: 0.73rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+/* full-bleed track, deliberately escaping the .wrap gutter */
+.shelf {
+  margin-top: 44px;
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-block: 6px 10px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.shelf-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: shelf-scroll 78s linear infinite;
+}
+
+.shelf:hover .shelf-track,
+.shelf:focus-within .shelf-track { animation-play-state: paused; }
+
+@keyframes shelf-scroll {
+  from { transform: translateX(0); }
+  /* half the track is a duplicate, so -50% loops seamlessly */
+  to   { transform: translateX(-50%); }
+}
+
+.shelf figure {
+  margin: 0;
+  flex: none;
+  width: 168px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background: var(--card);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.shelf figure:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+.shelf img {
+  display: block;
+  width: 100%;
+  height: 252px;
+  object-fit: cover;
+  object-position: top center;
+}
+
+@media (max-width: 620px) {
+  .shelf figure { width: 132px; }
+  .shelf img { height: 198px; }
+  .shelf-track { gap: 14px; animation-duration: 60s; }
+  .author-stats { gap: 14px 30px; }
+  .author-stats b { font-size: 1.3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shelf-track { animation: none; }
+  .shelf {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+            mask-image: none;
+    scrollbar-width: thin;
+  }
+  .shelf-track { width: auto; }
+}
+
+@media print { .authorship { display: none !important; } }

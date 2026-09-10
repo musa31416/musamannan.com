@@ -83,13 +83,36 @@ permanently reachable through the history. Deleting the file does not remove
 it. Keep tailored variants out of the repo from the first commit.
 
 
+AUTHORSHIP SECTION
+-----------------
+The last section of the homepage is a continuous marquee of book covers.
+Covers live in img/books/ and are listed twice in index.html: the first set
+carries the real alt text, the duplicate set is aria-hidden and exists only
+so the loop is seamless. If you add or remove a cover you must change BOTH
+copies, or the animation will jump.
+
+The marquee pauses on hover and stops entirely for anyone whose system is
+set to reduce motion, where it becomes a normal horizontal scroller.
+
+Three things to fix there:
+- Only 16 covers came through, not 17. Add the missing one to img/books/,
+  then add a <figure> for it in both halves of the shelf track.
+- img/books/dystopia.jpg carries a "rokomari.com" retailer watermark across
+  the middle. Replace it with a clean file from the publisher.
+- img/books/cover-07.jpg has alt text reading "CHECK TITLE" because the
+  title is cropped at the top of the image you sent. Put the real title in,
+  in both halves of the track.
+
+The copy says "Twenty-six books published in Bangladesh and India". If some
+of those 26 are translations rather than original novels, reword it, since
+"published" and "wrote" are different claims and a reader may check.
+
+
 BEFORE YOU TELL ANYONE ABOUT THE SITE
 =====================================
-- resume.pdf is OUT OF DATE. It still lists 5 publications. The HTML pages
-  now list 7, including the npj Advanced Manufacturing paper (in press) and
-  the Advanced Materials submission. Regenerate the PDF from your own
-  source before anyone downloads it, or the two documents contradict each
-  other. This is the highest-priority item on this list.
+- resume.pdf is current, rebuilt from resume.tex (included in this bundle).
+  If you edit the resume, edit resume.tex, run pdflatex twice, and copy the
+  new resume.pdf here. Keep resume/index.html in step with it.
 - Add Honors/Awards and Service sections to the CV. Both are missing and
   their absence is visible on an academic CV.
 - The npj paper is listed with DOI 10.1038/s44334-026-00109-5. Confirm that
@@ -103,10 +126,26 @@ BEFORE YOU TELL ANYONE ABOUT THE SITE
 
 PUBLICATION COUNT
 -----------------
-The homepage stat reads "7 Publications, 2 under review and 1 in press".
-That 7 is 5 journal articles, 1 conference proceedings, and 1 M.S. thesis.
-If you would rather the headline count exclude the thesis, change the stat
-in index.html to 6 and the label to "Journal papers and proceedings".
+Everything agrees at 6 journal papers and proceedings, 2 of them under
+review. The homepage stat, the resume page and resume.pdf all show those 6.
+The CV shows the same 6 plus the M.S. thesis under its own heading, which
+is the normal academic convention and does not affect the headline count.
+
+
+RESUME SOURCE
+-------------
+resume.tex is the LaTeX source for resume.pdf. It is set up for applicant
+tracking systems: T1 font encoding and glyphtounicode so the PDF text
+extracts as real characters, hyphenation disabled so no word breaks across
+a line, standard section names, month-year dates, single column, no tables.
+Build with:
+
+    pdflatex resume.tex
+    pdflatex resume.tex        (run twice)
+
+Do not switch to XeLaTeX or LuaLaTeX without removing the \pdfgentounicode
+line, which is a pdfTeX primitive. If mathptmx is missing on your machine,
+swap it for \usepackage{times}, though mathptmx is the better choice.
 
 
 UPDATING THE RESUME LATER

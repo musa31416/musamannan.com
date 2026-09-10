@@ -1,0 +1,175 @@
+%==============================================================================
+%  Musa Ibne Mannan - Resume
+%  Built for ATS (applicant tracking system) parsing:
+%    - T1 font encoding + glyphtounicode, so PDF text extracts as real
+%      characters instead of mangled ligatures
+%    - hyphenation disabled, so no word is split across lines with a hyphen
+%    - standard section names ("Summary", "Education", "Experience", "Skills",
+%      "Publications", "Projects") that parsers recognize
+%    - single column, no tables, no text boxes, no header/footer content
+%    - month-year date format
+%  Compile with pdflatex.
+%==============================================================================
+
+\documentclass[11pt, letterpaper]{article}
+
+\usepackage[margin=0.5in]{geometry}
+\usepackage[T1]{fontenc}          % T1 encoding: required for clean text extraction
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}             % Times text and math (replaces the obsolete `times`)
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+% --- ATS: embed a ToUnicode map so copy/paste and parsing return real text ----
+\input{glyphtounicode}
+\pdfgentounicode=1
+
+% --- ATS: never hyphenate; a broken word confuses keyword matching -----------
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\tolerance=2000
+\emergencystretch=3em
+
+\hypersetup{
+  pdftitle={Musa Ibne Mannan - Resume},
+  pdfauthor={Musa Ibne Mannan},
+  pdfsubject={Mechanical Engineering, Failure Analysis, Finite Element Analysis},
+  pdfkeywords={failure analysis, root cause analysis, finite element analysis,
+    Abaqus, FEA, materials characterization, mechanical testing, SEM, EDX, XPS,
+    XRD, Python, MATLAB, SolidWorks, AutoCAD, CATIA, CVD, Raman spectroscopy,
+    forensic engineering, technical consulting, mechanical engineering}
+}
+
+\definecolor{accent}{RGB}{0, 51, 102}
+
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\titlerule]
+\titlespacing{\section}{0pt}{7pt}{3pt}
+
+\setlist[itemize]{leftmargin=*, itemsep=0.5pt, topsep=1pt, parsep=0pt}
+\setlist[enumerate]{leftmargin=*, itemsep=0.5pt, topsep=1pt, parsep=0pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1pt}
+
+\newcommand{\role}[2]{\textbf{#1} \hfill #2 \\}
+
+\begin{document}
+\pagestyle{empty}
+
+%------------------------------------------------------------------ HEADER ----
+\begin{center}
+    {\LARGE\bfseries Musa Ibne Mannan}\\[5pt]
+    Dallas, Texas 75252 \quad | \quad (737) 221-1884 \quad | \quad
+    \href{mailto:musa314@utdallas.edu}{musa314@utdallas.edu}\\[3pt]
+    \href{https://musamannan.com}{musamannan.com} \quad | \quad
+    \href{https://www.linkedin.com/in/musa314/}{linkedin.com/in/musa314} \quad | \quad
+    \href{https://orcid.org/0009-0005-5579-6899}{ORCID 0009-0005-5579-6899}
+\end{center}
+\vspace{-4pt}
+\hrule height 1.5pt
+\vspace{6pt}
+
+%----------------------------------------------------------------- SUMMARY ----
+\section{Summary}
+Mechanical engineering Ph.D. candidate with five years of combined research and field engineering experience in
+failure analysis, finite element analysis, and experimental characterization. Built and commissioned high-vacuum CVD
+and Raman spectroscopy systems; performed root cause analysis on 120+ design faults across refinery and boiler
+projects, saving approximately 30,000 man-hours. Proficient in Abaqus, Python, MATLAB, SolidWorks, and materials
+characterization (SEM, EDX, XPS, XRD). Seeking forensic mechanical engineering, failure analysis, and technical
+consulting roles.
+
+%--------------------------------------------------------------- EDUCATION ----
+\section{Education}
+\role{Doctor of Philosophy (Ph.D.) in Mechanical Engineering}{Aug 2023 -- Present}
+Erik Jonsson School of Engineering and Computer Science, The University of Texas at Dallas, Richardson, TX \\
+Concentration: Manufacturing and Design Innovations \quad GPA: 3.62
+
+\role{Master of Science in Mechanical and Manufacturing Engineering (ABET accredited)}{Aug 2021 -- May 2023}
+Ingram School of Engineering, Texas State University, San Marcos, TX \quad GPA: 3.75
+
+%------------------------------------------------------------------ SKILLS ----
+\section{Technical Skills}
+\textbf{Failure Analysis and Testing:} Root cause analysis, fracture surface examination (SEM, EDAX), mechanical
+testing (tensile, flexural, Izod impact; MTS 810), thermal analysis (TGA, DSC, TMA), design review, field error
+resolution. \\
+\textbf{Simulation and CAD:} Abaqus (transient heat transfer, thermal stress, plasticity from true stress-strain
+data, mesh convergence, 2D plane stress and 3D solid elements), SolidWorks, AutoCAD, CATIA, Mastercam, basic CFD. \\
+\textbf{Programming and Data Analysis:} Python (data analysis pipelines, Random Forest, XGBoost), MATLAB
+(numerical methods, custom FEM implementation, Gauss quadrature, multi-objective genetic algorithms). \\
+\textbf{Experimental and Fabrication:} High-vacuum CVD system design and commissioning, pulsed laser deposition,
+Raman spectroscopy, XPS, XRD, SEM/EDX, ellipsometry, Hall measurement, FDM/SLA/Markforged 3D printing, twin-screw
+extrusion, CNC machining (HAAS VF-3), laser cutting, waterjet, TIG and arc welding, mill and lathe. \\
+\textbf{Professional:} Technical report writing, publication-quality figures and presentations, EHS and OSHA
+compliance, procurement and inventory management, Adobe Creative Suite.
+
+%-------------------------------------------------------------- EXPERIENCE ----
+\section{Professional Experience}
+
+\role{Research Assistant and Lab In-Charge}{Jun 2024 -- Present}
+Leem Research Group, The University of Texas at Dallas, Richardson, TX
+\begin{itemize}
+    \item Independently designed, assembled from the ground up, troubleshot, and operated high-vacuum CVD furnaces, a hydrogen generator, and integrated Raman spectroscopy instrumentation, then optimized the resulting process.
+    \item Led complete laboratory build-out including procurement, equipment installation, safety compliance, and inventory management while running concurrent computational and experimental programs.
+    \item Applied Python-based data analysis pipelines and ensemble machine learning (Random Forest, XGBoost) to optimize multi-parameter mechanical system performance and materials synthesis processes.
+\end{itemize}
+
+\role{Graduate Teaching Associate (Instructor of Record)}{Aug 2025 -- Present}
+The University of Texas at Dallas, Richardson, TX
+\begin{itemize}
+    \item Serve as sole instructor for ECS 1100, responsible for curriculum delivery, mentoring, and assessment of 130 first-year engineering students; develop and deliver technical lectures on engineering fundamentals including mechanics and design.
+\end{itemize}
+
+\role{Assistant and Site Engineer}{Sep 2018 -- Jun 2019}
+Washillah Engineering Services (Partex Petro Ltd. and CUFL projects), Bangladesh
+\begin{itemize}
+    \item Led on-site teams of 28 to 35 engineers and contractors for large-scale mechanical and piping projects (condensate refinery and boiler re-tubing); enforced EHS and OSHA standards and managed field operations under tight deadlines.
+    \item Performed root cause analysis and resolved over 120 design and implementation errors in mechanical systems and structures, saving approximately 30,000 man-hours and \$1M while maintaining quality and schedule.
+    \item Coordinated cross-functional teams, client interfaces, material logistics, and quality control in high-stakes industrial field environments.
+\end{itemize}
+
+\role{Graduate Instructional Assistant}{Aug 2023 -- May 2024}
+The University of Texas at Dallas, Richardson, TX
+\begin{itemize}
+    \item Graded assignments and exams and tutored 140+ students in Kinematics and Dynamics (MECH 3350) and Mechanics of Materials (MECH 2320).
+    \item Delivered substitute lectures and assisted students with computational modeling, FEA, and CAD troubleshooting.
+\end{itemize}
+
+\role{Graduate Instructional Assistant}{Sep 2021 -- May 2023}
+Texas State University, San Marcos, TX
+\begin{itemize}
+    \item Mentored three senior design teams (15 students) to completion on industry-sponsored mechanical engineering capstone projects; provided hands-on guidance in CAD, FEA, prototyping, and mechanical system design.
+\end{itemize}
+
+%---------------------------------------------------------------- PROJECTS ----
+\section{Selected Projects}
+\begin{itemize}
+    \item \textbf{Machine Gun Barrel Thermal and Stress Failure Analysis (Abaqus FEA):} Calculated firing pressure analytically at approximately 130.5 MPa, then ran transient heat transfer and von Mises stress analysis under sustained high-rate firing; evaluated AISI 4140, AK Steel 316L, and ASTM A656 Grade 7 for thermal gradients, stress concentration, and failure risk.
+    \item \textbf{Cantilever Beam FEA and Mesh Convergence Study (Abaqus, MATLAB):} Analyzed a 10 m cantilever under 2,000 N shear using CPS4, CPS8, and C3D8 elements across three mesh densities; 3D deflection error fell from 84\% to 22\%, 2D mid-span stress error from 94\% to 8.6\%. Verified against custom MATLAB code using 2x2 Gauss quadrature.
+    \item \textbf{Biocomposite Characterization and Failure Diagnosis:} Designed, extruded, and 3D-printed silane-treated natural fiber composites; used SEM/EDAX, tensile and flexural testing, and thermal analysis to diagnose interfacial adhesion issues, fiber-size effects, and resulting mechanical failure modes.
+    \item \textbf{rGO Thin-Film Processing and Characterization:} Independently designed and executed pulsed laser deposition and annealing experiments; performed full characterization (XPS, Raman, XRD, ellipsometry, Hall measurement, low-temperature transport).
+\end{itemize}
+
+%------------------------------------------------------------ PUBLICATIONS ----
+\section{Publications}
+\begin{enumerate}
+    \item \textbf{Musa Ibne Mannan}, Varin Kansal, Premesh N. Mistry, Victoria Estrada, Juyoung Leem. ``Hardware-Agnostic 2D Material Synthesis via Zero-Shot Machine Learning Translation.'' \textit{Advanced Materials} (Wiley). Under review.
+    \item \textbf{Musa Ibne Mannan}, Premesh Mistry, Varin Kansal, Victoria Estrada, Juyoung Leem. ``AI-Enabled CVD Synthesis, Quality Control, and Autonomous Manufacturing of 2D Materials.'' \textit{npj Advanced Manufacturing} (Springer Nature), 2026. DOI: 10.1038/s44334-026-00109-5.
+    \item Wasi Shadman, \textbf{Musa Mannan}, et al. ``Electrochemical Detection of tRNA-Derived Fragments (tRFs) Based on Multifunctionalized Carbon Surface.'' \textit{Surfaces and Interfaces} (Elsevier). Under review.
+    \item MSHK Tushar, \textbf{MI Mannan}, A Azmain. ``Exhaust Gas After Treatment using Air Preheating and Selective Catalytic Reduction by Urea to Reduce NOx in Diesel Engine.'' \textit{Heliyon}, 11(1), 2025.
+    \item KM Jitendra Tate, \textbf{Musa Ibne Mannan}, et al. ``Thermal and Structural Properties of Surface Treated Ragweed Fiber Reinforced Biodegradable Polylactic Acid Biocomposites.'' \textit{International Journal of Composite and Constituent Materials}, 8(2), 2022.
+    \item S Panta, \textbf{MI Mannan}, et al. ``Comparison of Mechanical and Morphological Properties of Ameo and Glymo Silane Treated Ragweed-PLA Bio-Composites.'' \textit{CAMX 2022 Proceedings}, Anaheim, CA, 2022.
+\end{enumerate}
+
+%----------------------------------------------------- ADDITIONAL EXPERIENCE --
+\section{Additional Experience}
+\role{Emergency Room Scribe Workflow Innovation, Augmedix}{Mar 2020 -- Jul 2021}
+Designed and piloted the first remote ER medical scribing program; built the training curriculum from scratch and implemented a real-time documentation workflow across multi-site teams. Featured in \textit{Business Insider}.
+
+\role{Medical Scribe, Augmedix}{Jul 2019 -- Jul 2021}
+Delivered real-time documentation for 4,000+ patients across multiple medical disciplines under timed, high-pressure conditions.
+
+\role{Novelist (Bangla)}{Feb 2016 -- Present}
+Author of 17 published crime novels, written to deadline alongside full-time engineering and research work.
+
+\end{document}
