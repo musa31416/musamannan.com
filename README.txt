@@ -85,12 +85,16 @@ it. Keep tailored variants out of the repo from the first commit.
 
 BEFORE YOU TELL ANYONE ABOUT THE SITE
 =====================================
-- Replace the LinkedIn and Google Scholar placeholders on the homepage.
-  They are marked data-todo in index.html.
-- Decide on the public email. It is musa314@utdallas.edu in four places.
-- Add Honors/Awards and Service to the CV. Both are missing and their
-  absence is visible on an academic CV.
+- The homepage stat says 7 journal papers and proceedings, but the
+  publication lists on /resume/ and /cv/ still show 5 entries. Add the
+  missing papers to both lists, or a reader who clicks through will notice
+  the mismatch. See "Publications" in resume/index.html and cv/index.html.
+- Add Honors/Awards and Service sections to the CV. Both are missing and
+  their absence is visible on an academic CV.
+- Decide on the public email. It is musa314@utdallas.edu in several places.
 - There is deliberately no phone number on the site. Scrapers harvest them.
+- LinkedIn, Google Scholar and ORCID are already wired in on all three
+  pages and into the structured data on the homepage.
 
 
 UPDATING THE RESUME LATER

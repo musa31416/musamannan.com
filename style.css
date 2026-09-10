@@ -270,7 +270,7 @@ section + section { border-top: 1px solid var(--border); }
 /* ---------- Card grids -------------------------------------------------- */
 
 .grid { display: grid; gap: 18px; }
-.grid-2 { grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); }
 .grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 
 .card {
