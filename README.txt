@@ -89,23 +89,27 @@ The last section of the homepage is a continuous marquee of book covers.
 Covers live in img/books/ and are listed twice in index.html: the first set
 carries the real alt text, the duplicate set is aria-hidden and exists only
 so the loop is seamless. If you add or remove a cover you must change BOTH
-copies, or the animation will jump.
+copies, or the animation will jump. It pauses on hover and stops entirely
+for anyone whose system is set to reduce motion.
 
-The marquee pauses on hover and stops entirely for anyone whose system is
-set to reduce motion, where it becomes a normal horizontal scroller.
-
-Three things to fix there:
+Still to fix there:
 - Only 16 covers came through, not 17. Add the missing one to img/books/,
   then add a <figure> for it in both halves of the shelf track.
-- img/books/dystopia.jpg carries a "rokomari.com" retailer watermark across
-  the middle. Replace it with a clean file from the publisher.
+- img/books/dystopia.jpg carries a "rokomari.com" retailer watermark.
+  Replace it with a clean file from the publisher.
 - img/books/cover-07.jpg has alt text reading "CHECK TITLE" because the
-  title is cropped at the top of the image you sent. Put the real title in,
-  in both halves of the track.
+  title is cropped at the top of the image you sent.
 
-The copy says "Twenty-six books published in Bangladesh and India". If some
-of those 26 are translations rather than original novels, reword it, since
-"published" and "wrote" are different claims and a reader may check.
+
+PHOTOS
+------
+img/avatar.jpg      nav logo, circular, cropped from the flags photo
+img/musa-lab.jpg    hero portrait, the microscope shot
+img/musa-flags.jpg  Authorship section portrait
+
+To swap any of them, replace the file at the same path and keep the aspect
+ratio close, or update the width and height attributes in index.html so the
+browser reserves the right space and the page does not jump while loading.
 
 
 BEFORE YOU TELL ANYONE ABOUT THE SITE
