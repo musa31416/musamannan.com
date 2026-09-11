@@ -103,13 +103,19 @@ Still to fix there:
 
 PHOTOS
 ------
-img/avatar.jpg      nav logo, circular, cropped from the flags photo
-img/musa-lab.jpg    hero portrait, the microscope shot
-img/musa-flags.jpg  Authorship section portrait
+img/avatar.jpg          nav logo, circular, face crop from the flags photo
+img/musa-portrait.jpg   hero portrait, square file displayed as a circle
+img/musa-cover.jpg      Authorship cover banner, 2.9:1
 
-To swap any of them, replace the file at the same path and keep the aspect
-ratio close, or update the width and height attributes in index.html so the
-browser reserves the right space and the page does not jump while loading.
+The hero portrait must stay square. It is a 560x560 file that CSS clips to a
+circle, so a rectangular replacement will crop badly.
+
+The cover banner is set by aspect-ratio in style.css (2.9 on desktop, 2.1 on
+a phone so it crops in rather than turning into a thin strip). If you swap
+the file, keep it wide and update the width and height attributes in
+index.html so the browser reserves the right space and the page does not
+jump while loading. object-position in the .author-cover img rule controls
+which part of the photo stays visible when it crops.
 
 
 BEFORE YOU TELL ANYONE ABOUT THE SITE
