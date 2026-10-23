@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Raman Si Calibrator</title>
+<meta name="description" content="Leem Lab tool: calibrate Raman spectra to the Si peak and measure MoS2 E2g, A1g and their peak difference. Runs in your browser.">
+<link rel="canonical" href="https://musamannan.com/Mos2/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one working column. Instrument-panel header, drop zone + settings, then results (stats, downloads, table, figure). */
+:root {
+  --bg: #f3f5f8; --surface: #ffffff; --surface-2: #eef2f7; --ink: #14171c; --muted: #5a616c; --line: #dce1e8;
+  --accent: #2a78d6; --accent-ink: #ffffff; --accent-soft: #e3eefb; --navy: #14325c;
+  --bin1: #86b6ef; --bin1-ink: #14171c; --bin2: #2a78d6; --bin2-ink: #ffffff; --bin3: #104281; --bin3-ink: #ffffff;
+  --warn: #b3261e; --ok: #1f7a4d;
+  --sans: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  --mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+  --radius: 10px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1116; --surface: #161a21; --surface-2: #1d222b; --ink: #e7eaef; --muted: #9aa3af; --line: #2a313c;
+    --accent: #4a92e8; --accent-ink: #0b1220; --accent-soft: #17283f; --navy: #0b1a30;
+    --bin1: #86b6ef; --bin1-ink: #0b1220; --bin2: #3987e5; --bin2-ink: #0b1220; --bin3: #8db8f2; --bin3-ink: #0b1220;
+    --warn: #f2867e; --ok: #6fd3a0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1116; --surface: #161a21; --surface-2: #1d222b; --ink: #e7eaef; --muted: #9aa3af; --line: #2a313c;
+  --accent: #4a92e8; --accent-ink: #0b1220; --accent-soft: #17283f; --navy: #0b1a30;
+  --bin1: #86b6ef; --bin1-ink: #0b1220; --bin2: #3987e5; --bin2-ink: #0b1220; --bin3: #8db8f2; --bin3-ink: #0b1220;
+  --warn: #f2867e; --ok: #6fd3a0;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 var(--sans); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* header */
+header.band { background: var(--navy); color: #e9eef6; }
+header .wrap { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 24px; align-items: center; padding-block: 28px 26px; }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: #9fb7d8; }
+h1 { font-weight: 700; font-size: clamp(28px, 4vw, 40px); line-height: 1.08; letter-spacing: -0.02em; margin: 8px 0 10px; text-wrap: balance; }
+.lede { margin: 0; max-width: 62ch; color: #c9d6e8; }
+.pill { display: inline-flex; gap: 8px; align-items: center; margin-top: 14px; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,0.08); color: #dfe8f5; font-size: 13px; }
+.pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #6fd3a0; }
+.trace { width: 100%; max-width: 280px; aspect-ratio: 28 / 13; display: block; }
+
+main { padding-block: 28px 56px; display: grid; gap: 24px; }
+section.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; min-width: 0; }
+h2 { font-size: 18px; font-weight: 600; margin: 0 0 4px; letter-spacing: -0.01em; }
+.sub { color: var(--muted); margin: 0 0 16px; font-size: 14px; }
+
+/* input */
+.input-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 20px; }
+.drop { display: block; position: relative; border: 2px dashed var(--line); border-radius: var(--radius); padding: 28px 20px; text-align: center; background: var(--surface-2); transition: border-color .15s, background .15s; cursor: pointer; }
+.drop:hover, .drop.over { border-color: var(--accent); background: var(--accent-soft); }
+.drop:focus-within { outline: 3px solid var(--accent); outline-offset: 2px; }
+.drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.drop strong { display: block; font-size: 17px; margin-bottom: 4px; }
+.drop span { color: var(--muted); font-size: 14px; }
+.files { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 6px; font: 13px var(--mono); }
+.files li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 10px; background: var(--surface-2); border-radius: 6px; min-width: 0; }
+.files li span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.files li .err { color: var(--warn); }
+fieldset { border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px 16px; margin: 0; display: grid; gap: 12px; }
+legend { font-weight: 600; font-size: 14px; padding: 0 6px; }
+.field { display: grid; grid-template-columns: minmax(0, 1fr) 110px; gap: 10px; align-items: center; font-size: 14px; }
+.field small { display: block; color: var(--muted); font-size: 12px; }
+input[type=number] { width: 100%; padding: 7px 9px; font: 14px var(--mono); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+input[type=number]:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+button { font: 600 14px var(--sans); border-radius: 8px; padding: 10px 16px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; display: inline-flex; gap: 8px; align-items: center; }
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+button:disabled { opacity: .5; cursor: not-allowed; }
+button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+button:not(:disabled):hover { filter: brightness(1.06); }
+
+/* results */
+.banner { display: flex; gap: 10px; align-items: baseline; padding: 10px 14px; border-radius: 8px; background: var(--accent-soft); font-size: 14px; margin-bottom: 16px; }
+.banner b { white-space: nowrap; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 18px; }
+.stat { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+.stat .k { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+.stat .v { font: 600 24px/1.2 var(--mono); font-variant-numeric: tabular-nums; margin-top: 4px; }
+.dl { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 18px; }
+.dl .note { color: var(--muted); font-size: 13px; }
+.progress { font: 13px var(--mono); color: var(--muted); min-height: 1.4em; }
+.res-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.table-wrap { overflow: auto; max-height: 560px; border: 1px solid var(--line); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; font-variant-numeric: tabular-nums; }
+th, td { padding: 7px 8px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line); }
+th { position: sticky; top: 0; background: var(--surface-2); font-weight: 600; z-index: 1; }
+th.name, td.name { text-align: left; }
+th.pick, td.pick { width: 1%; text-align: center; padding: 0 4px 0 10px; }
+th.pick { font-size: 11px; font-weight: 600; color: var(--muted); }
+td.pick input { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; vertical-align: middle; }
+td { font-family: var(--mono); }
+td.name { font-family: var(--sans); white-space: normal; line-height: 1.3; min-width: 120px; max-width: 150px; overflow: hidden; text-overflow: ellipsis; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--surface-2); }
+tbody tr[aria-selected="true"] { background: var(--accent-soft); }
+tbody tr:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.chip { display: inline-block; min-width: 54px; text-align: center; padding: 2px 8px; border-radius: 999px; font-weight: 600; }
+.b1 { background: var(--bin1); color: var(--bin1-ink); } .b2 { background: var(--bin2); color: var(--bin2-ink); } .b3 { background: var(--bin3); color: var(--bin3-ink); }
+.bx { background: var(--surface-2); color: var(--muted); }
+.muted { color: var(--muted); }
+.figure { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #fff; }
+.figure canvas { width: 100%; height: auto; display: block; }
+.tabs { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.tabs button { padding: 6px 12px; font-size: 13px; font-weight: 500; gap: 0; }
+.tabs button[aria-selected="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.tabs .clear { margin-left: auto; color: var(--muted); border-style: dashed; }
+.fig-actions { display: flex; justify-content: flex-end; margin-top: 8px; }
+.fig-actions button { padding: 6px 12px; font-size: 13px; font-weight: 500; }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 16px; font-size: 13px; color: var(--muted); margin-top: 10px; }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+
+/* method */
+.method { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.method h3 { font-size: 14px; margin: 0 0 6px; }
+.method p { margin: 0; color: var(--muted); font-size: 14px; }
+footer { color: var(--muted); font-size: 13px; padding-block: 0 40px; }
+code, .mono { font-family: var(--mono); font-size: 0.92em; }
+
+@media (max-width: 860px) {
+  header .wrap { grid-template-columns: 1fr; }
+  .trace { max-width: 220px; }
+  .input-grid, .res-grid, .method { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="band">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Leem Lab &middot; UT Dallas &middot; MoS&#8322; Raman</div>
+      <h1>Raman Si Calibrator</h1>
+      <p class="lede">Drop raw Raman TXT exports. Every spectrum is shifted so its Si peak sits at the reference, then E&sup1;&#8322;g, A&#8321;g and the peak difference are measured. You get a formatted Excel workbook and a ZIP of plots.</p>
+      <div class="pill">Processed in your browser.</div>
+    </div>
+    <canvas class="trace" id="trace" width="560" height="260" aria-label="Sketch of a Si peak at 520.7 per centimeter"></canvas>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card" aria-labelledby="in-h">
+    <h2 id="in-h">Raw data</h2>
+    <p class="sub">TXT exports straight from the spectrometer software. One or many spectra per file, any number of files, 1800 or 600 gr/mm.</p>
+    <div class="input-grid">
+      <div>
+        <label class="drop" id="drop" for="file">
+          <input type="file" id="file" accept=".txt,.csv,text/plain" multiple>
+          <strong>Drop TXT files here</strong>
+          <span>or click to choose files</span>
+        </label>
+        <ul class="files" id="files"></ul>
+      </div>
+      <fieldset>
+        <legend>Settings</legend>
+        <div class="field"><label for="siRef">Si reference <small>cm&#8315;&sup1;, true Si peak</small></label><input type="number" id="siRef" step="0.1" value="520.7"></div>
+        <div class="field"><label for="pMin">Plot from <small>cm&#8315;&sup1;</small></label><input type="number" id="pMin" step="5" value="350"></div>
+        <div class="field"><label for="pMax">Plot to <small>cm&#8315;&sup1;</small></label><input type="number" id="pMax" step="5" value="430"></div>
+        <div class="field"><label for="dec">&Delta; decimals <small>on the plots</small></label><input type="number" id="dec" min="0" max="3" step="1" value="1"></div>
+        <div class="field"><label for="sat">Saturation level <small>detector counts</small></label><input type="number" id="sat" step="1000" value="65000"></div>
+      </fieldset>
+    </div>
+    <div class="actions">
+      <button class="primary" id="run" disabled>Calibrate and measure</button>
+      <button id="clear" disabled>Clear files</button>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="out-h">
+    <h2 id="out-h">Results</h2>
+    <p class="sub" id="out-sub">Click a row to see that spectrum's plot. Tick the boxes to stack several spectra for comparison.</p>
+    <div class="banner" id="banner"><b>Example</b><span>These are three synthetic spectra so you can see the output. Drop your own files above to replace them.</span></div>
+    <div class="stats">
+      <div class="stat"><div class="k">Files</div><div class="v" id="sFiles">0</div></div>
+      <div class="stat"><div class="k">Spectra</div><div class="v" id="sSpec">0</div></div>
+      <div class="stat"><div class="k">With MoS&#8322;</div><div class="v" id="sMos">0</div></div>
+      <div class="stat"><div class="k">Median &Delta; (cm&#8315;&sup1;)</div><div class="v" id="sDelta">&ndash;</div></div>
+    </div>
+    <div class="dl">
+      <button class="primary" id="dlXlsx" disabled>Download Excel (.xlsx)</button>
+      <button class="primary" id="dlZip" disabled>Download all plots (.zip)</button>
+      <span class="progress" id="progress" role="status" aria-live="polite"></span>
+    </div>
+    <div class="res-grid">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th class="pick" title="Tick to compare">Pick</th><th class="name">File &middot; #</th><th>&Delta; (cm&#8315;&sup1;)</th><th>Si raw</th><th>Shift</th><th>E&sup1;&#8322;g</th><th>A&#8321;g</th></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div>
+        <div class="tabs" role="tablist">
+          <button role="tab" aria-selected="true" data-view="one" id="tabOne">Selected spectrum</button>
+          <button role="tab" aria-selected="false" data-view="compare" id="tabCmp">Selected spectra (<span id="nSel">0</span>)</button>
+          <button role="tab" aria-selected="false" data-view="stack" id="tabStack">All spectra</button>
+          <button role="tab" aria-selected="false" data-view="si" id="tabSi">Si check</button>
+          <button class="clear" id="clearSel" hidden>Clear ticks</button>
+        </div>
+        <div class="figure"><canvas id="fig" width="1640" height="1040" aria-label="Plot of the selected spectrum"></canvas></div>
+        <div class="fig-actions"><button id="dlFig">Download this figure (.png)</button></div>
+        <div class="legend">
+          <span><i style="background:var(--bin1)"></i>&Delta; 18 to &lt;20 monolayer-like</span>
+          <span><i style="background:var(--bin2)"></i>20 to &lt;23 bilayer-like</span>
+          <span><i style="background:var(--bin3)"></i>23 to 30 few-layer / thick</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="m-h">
+    <h2 id="m-h">How it works</h2>
+    <p class="sub">Each spectrum is shifted so its own Si peak sits at the reference, then E&sup1;&#8322;g and A&#8321;g are located between data points by a Gaussian fit through each peak top. Their difference sorts every spot into a layer class.</p>
+    <div class="method">
+      <div><h3>Si calibration</h3><p>The Si peak (490 to 555 cm&#8315;&sup1;) gets a straight baseline, then a Gaussian fit through its top gives the position between data points. A flat, saturated top is located from the midpoint of its two sides at 75% height. The whole spectrum is shifted so Si lands on the reference.</p></div>
+      <div><h3>MoS&#8322; peaks</h3><p>On the shifted axis, E&sup1;&#8322;g (372 to 394) and A&#8321;g (396 to 418) are found the same way, with widths read at half height. The peak difference is A&#8321;g minus E&sup1;&#8322;g; the Si shift moves both peaks equally, so it never changes the difference.</p></div>
+      <div><h3>Accuracy</h3><p>A spectrum counts as MoS&#8322; when A&#8321;g is more than 6 times the noise. On coarse 600 gr/mm scans the difference is good to about &plusmn;0.5 cm&#8315;&sup1;. Values within 0.3 of a class boundary are borderline.</p></div>
+    </div>
+  </section>
+  <footer>Leem Lab, Department of Mechanical Engineering, The University of Texas at Dallas. Built for internal lab use. Built by <a href="/">Musa Ibne Mannan</a>.</footer>
+</main>
+
+<script src="js/vendor/exceljs.min.js"></script>
+<script src="js/vendor/jszip.min.js"></script>
+<script src="js/raman-core.js"></script>
+<script src="js/plots.js"></script>
+<script src="js/excel.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
