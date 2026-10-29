@@ -46,16 +46,39 @@
         I fabricate biosensors, <strong>synthesize 2D materials</strong>, and design the experiments that tell
         me why things fail.
       </p>
-      <p class="hero-sub">
-        Ph.D. candidate at UT Dallas in Manufacturing and Design Innovations, working across hardware, mechanics
-        and data. I built the lab's CVD line from an empty bench, grew monolayer MoS<sub>2</sub> in it, and
-        trained a model on 139 of those growths that carried a working recipe into a different reactor on the
-        first attempt. Before that I fabricated electrochemical aptasensors for tRNA fragment biomarkers, and the
-        next device follows the same route. Before graduate school I ran mechanical and piping projects on a
-        condensate refinery in Bangladesh, which is where I learned root-cause analysis under a deadline, then
-        spent two years supporting a California emergency room through COVID, where I built the world's first
-        remote ER scribing workflow from scratch.
-      </p>
+      <div class="roles">
+        <p class="roles-lead">I am a polymath who is a <span class="roles-hint">(hover or tap for details)</span></p>
+        <ul class="role-list">
+        <li class="role">
+          <button class="role-btn" type="button" aria-expanded="false" aria-controls="role-1">PhD Candidate at UT Dallas (MDI)<span class="role-plus" aria-hidden="true"></span></button>
+          <div class="role-pop" id="role-1" role="region" aria-label="PhD Candidate at UT Dallas (MDI)"><p>Ph.D. candidate in Manufacturing and Design Innovations, working across hardware, mechanics and data. I built the lab&#39;s CVD line from an empty bench, grew monolayer MoS<sub>2</sub> in it, and trained a model on 139 of those growths that carried a working recipe into a different reactor on the first attempt.</p></div>
+        </li>
+        <li class="role">
+          <button class="role-btn" type="button" aria-expanded="false" aria-controls="role-2">Biosensor Researcher at Texas State University<span class="role-plus" aria-hidden="true"></span></button>
+          <div class="role-pop" id="role-2" role="region" aria-label="Biosensor Researcher at Texas State University"><p>I fabricated electrochemical aptasensors for tRNA fragment biomarkers. The published device detects down to 0.4 nM and tells apart a three-nucleotide mutation, and the next device follows the same route.</p></div>
+        </li>
+        <li class="role">
+          <button class="role-btn" type="button" aria-expanded="false" aria-controls="role-3">Medical Scribe at St. John&#39;s Hospital, CA<span class="role-plus" aria-hidden="true"></span></button>
+          <div class="role-pop" id="role-3" role="region" aria-label="Medical Scribe at St. John&#39;s Hospital, CA"><p>Two years supporting a California emergency room through COVID, where I built the world&#39;s first remote ER scribing workflow from scratch.</p></div>
+        </li>
+        <li class="role">
+          <button class="role-btn" type="button" aria-expanded="false" aria-controls="role-4">Assistant Engineer at a refinery<span class="role-plus" aria-hidden="true"></span></button>
+          <div class="role-pop" id="role-4" role="region" aria-label="Assistant Engineer at a refinery"><p>Mechanical and piping projects on a condensate refinery in Bangladesh, where I learned root-cause analysis under a deadline. I caught a design error in a drawing that was about to be used for 140 more platforms. After my fix, 11 already-built platforms had to be broken down instead of 140, a saving of about $1 million.</p></div>
+        </li>
+        <li class="role">
+          <button class="role-btn" type="button" aria-expanded="false" aria-controls="role-5">Created the world&#39;s best Bangla spell checker<span class="role-plus" aria-hidden="true"></span></button>
+          <div class="role-pop" id="role-5" role="region" aria-label="Created the world&#39;s best Bangla spell checker"><p>A free spell checker for Bangla that works offline in the browser, built for anyone who writes in Bengali.</p></div>
+        </li>
+        <li class="role">
+          <button class="role-btn" type="button" aria-expanded="false" aria-controls="role-6">Author of 17 crime novels published in 2 countries<span class="role-plus" aria-hidden="true"></span></button>
+          <div class="role-pop" id="role-6" role="region" aria-label="Author of 17 crime novels published in 2 countries"><p>Crime fiction in Bangla, written as Kishor Pasha Imon and published in Bangladesh and India.</p></div>
+        </li>
+        <li class="role">
+          <button class="role-btn" type="button" aria-expanded="false" aria-controls="role-7">Founder of a nonprofit in Bangladesh<span class="role-plus" aria-hidden="true"></span></button>
+          <div class="role-pop" id="role-7" role="region" aria-label="Founder of a nonprofit in Bangladesh"><p>A nonprofit in Bangladesh that spreads the mission of freedom and equal opportunity.</p></div>
+        </li>
+        </ul>
+      </div>
       <div class="cta-row">
         <a class="btn btn-primary" href="/resume.pdf">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -336,5 +359,40 @@
 })();
 </script>
 
+<script>
+(function () {
+  var roles = [].slice.call(document.querySelectorAll('.role'));
+  function place(role) {
+    var pop = role.querySelector('.role-pop');
+    pop.classList.remove('flip');
+    var r = pop.getBoundingClientRect();
+    if (r.right > window.innerWidth - 12) pop.classList.add('flip');
+  }
+  function close(role) {
+    role.classList.remove('open');
+    role.querySelector('.role-btn').setAttribute('aria-expanded', 'false');
+  }
+  roles.forEach(function (role) {
+    var btn = role.querySelector('.role-btn');
+    role.addEventListener('mouseenter', function () { place(role); });
+    btn.addEventListener('focus', function () { place(role); });
+    btn.addEventListener('click', function () {
+      var willOpen = !role.classList.contains('open');
+      roles.forEach(close);
+      if (willOpen) {
+        role.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        place(role);
+      }
+    });
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.role')) roles.forEach(close);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') roles.forEach(close);
+  });
+})();
+</script>
 </body>
 </html>
