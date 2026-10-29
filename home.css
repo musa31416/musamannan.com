@@ -350,7 +350,7 @@ section + section { border-top: 0; }
   left: 0;
   top: calc(100% + 10px);
   z-index: 30;
-  width: min(360px, calc(100vw - 32px));
+  width: min(400px, calc(100vw - 32px));
   padding: 16px 18px;
   background: var(--ink);
   color: #e6e9ed;
@@ -393,3 +393,6 @@ section + section { border-top: 0; }
   .role.open .role-pop { display: block; }
   .role:hover:not(.open) .role-pop, .role:focus-within:not(.open) .role-pop { display: none; }
 }
+.role-pop a { color: #f6b77c; text-decoration: underline; text-underline-offset: 2px; }
+.role-pop a:hover { color: #ffd2a6; }
+.role-pop cite { font-style: italic; color: #fff; }
