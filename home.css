@@ -396,3 +396,29 @@ section + section { border-top: 0; }
 .role-pop a { color: #f6b77c; text-decoration: underline; text-underline-offset: 2px; }
 .role-pop a:hover { color: #ffd2a6; }
 .role-pop cite { font-style: italic; color: #fff; }
+
+/* ---------- Headline tag and dictionary entry --------------------------- */
+
+.hero-tag { display: block; color: var(--text); font-weight: 650; letter-spacing: -0.015em; margin-bottom: 4px; }
+
+.dict {
+  font-family: "Source Serif 4", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  max-width: 40rem;
+  margin: 6px 0 22px;
+  padding: 4px 0 4px 20px;
+  border-left: 3px solid var(--accent-line);
+}
+.dict-head { margin: 0 0 6px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
+.dict-word { font-style: normal; font-weight: 700; font-size: 1.7rem; letter-spacing: 0.005em; color: var(--text); line-height: 1.1; }
+.dict-pron { font-size: 1.05rem; color: var(--dim); letter-spacing: 0.02em; }
+.dict-pos { font-style: italic; font-size: 1rem; color: var(--accent); }
+.dict-def { margin: 0; font-size: 1.08rem; line-height: 1.65; color: #2f363f; }
+
+.roles-lead { font-family: "Source Serif 4", Georgia, serif; font-style: italic; font-size: 1.08rem; color: var(--text); }
+.roles-hint { font-style: normal; }
+
+@media (max-width: 620px) {
+  .dict { padding-left: 14px; }
+  .dict-word { font-size: 1.45rem; }
+  .dict-def { font-size: 1rem; }
+}
