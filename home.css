@@ -36,7 +36,7 @@ body { font-size: 16.5px; font-feature-settings: "cv11", "ss01", "ss03"; }
 
 /* ---------- Hero -------------------------------------------------------- */
 
-.hero { position: relative; padding-block: clamp(56px, 10vw, 112px) 64px; }
+.hero { position: relative; padding-block: clamp(36px, 6vw, 72px) 44px; }
 
 /* fine dot grid that fades out toward the edges */
 .hero::before {
@@ -127,7 +127,7 @@ body { font-size: 16.5px; font-feature-settings: "cv11", "ss01", "ss03"; }
 
 /* ---------- Stats ------------------------------------------------------- */
 
-section.wrap[style] { padding-bottom: 64px; }
+section.wrap[style] { padding-bottom: 48px; }
 .stats { background: none; border: 0; box-shadow: none; gap: 14px; overflow: visible; }
 .stat {
   background: #fff;
@@ -161,13 +161,13 @@ section.wrap[style] { padding-bottom: 64px; }
 
 /* ---------- Section rhythm --------------------------------------------- */
 
-section { padding-block: 88px; }
+section { padding-block: 60px; }
 section + section { border-top: 0; }
 #focus { border-top: 1px solid var(--border); }
 
 .section-title { font-size: clamp(1.75rem, 3.8vw, 2.45rem); font-weight: 700; letter-spacing: -0.035em; margin-bottom: 14px; }
 .section-lede { font-size: 1.02rem; }
-#focus .section-title { margin-bottom: 38px; }
+#focus .section-title { margin-bottom: 26px; }
 
 /* projects sit on a recessed band so the page has rhythm */
 #work { position: relative; }
@@ -232,7 +232,7 @@ section + section { border-top: 0; }
 
 /* ---------- Contact: dark panel ----------------------------------------- */
 
-#contact { padding-block: 96px; }
+#contact { padding-block: 60px; }
 .contact-card {
   background:
     radial-gradient(700px 300px at 100% 0%, rgba(200, 118, 42, 0.22), transparent 60%),
@@ -293,8 +293,8 @@ section + section { border-top: 0; }
 }
 
 @media (max-width: 620px) {
-  section { padding-block: 62px; }
-  #contact { padding-block: 62px; }
+  section { padding-block: 42px; }
+  #contact { padding-block: 42px; }
   .nav-links a[href="/resume.pdf"] { margin-left: 0; }
   .hero .kicker { font-size: 0.64rem; letter-spacing: 0.08em; padding: 6px 12px; }
   .stats { grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -436,3 +436,9 @@ section + section { border-top: 0; }
 .dict-pos { color: #1e3a5f; }
 @media (max-width: 620px) { .dict { padding: 14px 16px 16px; } }
 .author-link { margin: 28px 0 0; }
+
+/* tighter rhythm */
+.grid { gap: 16px; }
+.card { padding: 24px 24px; }
+.authorship .author-cover { margin-bottom: 28px; }
+.shelf { margin-top: 32px; }
