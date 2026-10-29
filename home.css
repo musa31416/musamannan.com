@@ -540,3 +540,7 @@ body { font-size: 15.5px; line-height: 1.6; }
 
 /* role popovers must sit above the stats row that follows the hero */
 .hero { z-index: 20; }
+
+/* larger portrait (1.5x) */
+.hero-grid { grid-template-columns: minmax(0, 1fr) clamp(280px, 33vw, 420px); }
+@media (max-width: 780px) { .hero-grid { grid-template-columns: 1fr; } .hero-photo { width: 285px; } }
