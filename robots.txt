@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /leemlab/
 
 Sitemap: https://musamannan.com/sitemap.xml

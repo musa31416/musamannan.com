@@ -251,3 +251,6 @@ a.cite:hover { background: var(--accent-soft); }
   .doc { border: 0; box-shadow: none; padding: 0; }
   body { background: #fff; }
 }
+
+/* phones: keep the breadcrumb readable when the Lock button is present */
+@media (max-width:560px){.tb-actions button[onclick*="print"]{display:none}}
