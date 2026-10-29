@@ -442,3 +442,98 @@ section + section { border-top: 0; }
 .card { padding: 24px 24px; }
 .authorship .author-cover { margin-bottom: 28px; }
 .shelf { margin-top: 32px; }
+
+/* ---------- Scale: a more compact, standard type scale ------------------ */
+
+:root { --wrap: 1140px; }
+body { font-size: 15.5px; line-height: 1.6; }
+.hero h1 { font-size: clamp(2.3rem, 5.6vw, 3.6rem); margin-bottom: 18px; }
+.hero-lede { font-size: clamp(1.02rem, 1.8vw, 1.18rem); }
+.hero .kicker { margin-bottom: 20px; padding: 6px 12px; font-size: 0.68rem; }
+.hero-grid { grid-template-columns: minmax(0, 1fr) clamp(200px, 22vw, 280px); }
+.dict-word { font-size: 1.45rem; }
+.dict-def { font-size: 1rem; }
+.dict { padding: 12px 18px 14px; }
+.role-btn { font-size: 0.84rem; padding: 7px 12px 7px 14px; }
+.role-list { gap: 7px; }
+.btn { padding: 11px 18px; font-size: 0.88rem; }
+.section-title { font-size: clamp(1.5rem, 3vw, 1.95rem); }
+.section-lede { font-size: 0.96rem; }
+.stat { padding: 18px 18px 16px; }
+.stat b { font-size: clamp(1.5rem, 2.4vw, 1.8rem); }
+.stat span { font-size: 0.78rem; }
+.card { padding: 20px 20px; }
+.card h3 { font-size: 1.02rem; }
+.card p { font-size: 0.88rem; }
+.card-num { width: 32px; height: 32px; margin-bottom: 12px; font-size: 0.72rem; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); }
+.contact-card { padding: clamp(24px, 4vw, 40px); }
+.contact-list li { padding: 10px 14px; font-size: 0.9rem; }
+.author-stats b { font-size: 1.5rem; }
+.shelf figure { width: 140px; }
+.shelf img { height: 210px; }
+.nav-inner { min-height: 58px; }
+
+@media (max-width: 620px) {
+  body { font-size: 15px; }
+  .shelf figure { width: 116px; }
+  .shelf img { height: 174px; }
+}
+
+/* ---------- Print: the homepage as a compact two-page profile ----------- */
+
+@media print {
+  @page { margin: 12mm 13mm; }
+  html, body { background: #fff !important; font-size: 9.4pt; line-height: 1.42; }
+  .nav, .foot, .shelf, .author-cover, .cta-row, .roles-hint, .role-plus,
+  .role-pop, .hero::before, #work::before, .card::after, .stat::before,
+  .author-link, .section-lede { display: none !important; }
+  .wrap { max-width: none; padding: 0; }
+  section, .hero, #contact { padding: 0 !important; margin: 0 0 10pt !important; border: 0 !important; }
+  .hero-grid { grid-template-columns: 1fr 1.15in !important; gap: 14pt !important; align-items: start; }
+  .hero-photo { width: 1.15in !important; padding: 2px; box-shadow: none !important; }
+  .hero .kicker { border: 0; background: none; padding: 0; margin: 0 0 4pt; font-size: 7pt; }
+  .hero h1 { font-size: 22pt; margin: 0 0 4pt; background: none; color: #000; -webkit-text-fill-color: #000; }
+  .hero-lede { font-size: 10pt; margin: 0 0 6pt; color: #111; }
+  .hero-tag { margin: 0; }
+  .dict { box-shadow: none; padding: 5pt 8pt; margin: 4pt 0 6pt; border-top-width: 1.5pt; border-bottom-width: 1.5pt; }
+  .dict-word { font-size: 12pt; }
+  .dict-pron, .dict-pos { font-size: 8.5pt; }
+  .dict-def { font-size: 8.8pt; line-height: 1.35; }
+  .roles { margin: 0 0 6pt; }
+  .roles-lead { font-size: 9pt; margin: 0 0 3pt; }
+  .role-list { flex-direction: row !important; flex-wrap: wrap; gap: 3pt !important; }
+  .role-btn { width: auto !important; padding: 1.5pt 6pt !important; font-size: 7.6pt !important; border-radius: 99px !important;
+              box-shadow: none !important; background: #fff !important; color: #000 !important; border: 0.6pt solid #888 !important; transform: none !important; }
+  .meta-row { margin: 0; font-size: 7.6pt; }
+  .meta-row span { padding: 1pt 6pt; background: none; }
+  .stats { grid-template-columns: repeat(4, 1fr) !important; gap: 5pt !important; margin-bottom: 4pt; }
+  .stat { padding: 5pt 7pt !important; box-shadow: none !important; border-color: #bbb; break-inside: avoid; }
+  .stat b { font-size: 13pt !important; margin: 0; }
+  .stat span { font-size: 7.2pt; }
+  .kicker { font-size: 7pt; margin: 0 0 3pt; }
+  .kicker::after { display: none; }
+  .section-title { font-size: 12.5pt; margin: 0 0 5pt !important; }
+  .grid, .grid-2 { grid-template-columns: 1fr 1fr !important; gap: 6pt !important; }
+  .card { padding: 6pt 8pt !important; border-radius: 6pt; box-shadow: none !important; border-color: #bbb; break-inside: avoid; transform: none !important; }
+  .card h3 { font-size: 9pt; margin-bottom: 2pt; }
+  .card p { font-size: 7.9pt; line-height: 1.36; }
+  .card-num { display: none; }
+  .card .tags { padding-top: 3pt; margin-top: 3pt; }
+  .tag { font-size: 6.4pt; padding: 0 4pt; }
+  #work .card > p[style] { margin-top: 3pt !important; padding-top: 3pt; font-size: 6.8pt !important; }
+  .contact-card { background: #fff !important; color: #000; border: 0.6pt solid #bbb; padding: 7pt 9pt !important; box-shadow: none; }
+  .contact-card .section-title, .contact-card li, .contact-card a { color: #000 !important; }
+  .contact-list { grid-template-columns: repeat(3, 1fr) !important; gap: 3pt !important; margin-top: 4pt; }
+  .contact-list li { padding: 2pt 4pt !important; font-size: 7.8pt; background: none; border: 0; }
+  .contact-list dfn { min-width: 0; font-size: 6.4pt; color: #555; }
+  .authorship { display: block !important; background: none; padding: 0 !important; }
+  .authorship .section-lede { display: block !important; font-size: 8.4pt; margin: 0 0 4pt; max-width: none; }
+  .author-stats { margin: 0; gap: 4pt 24pt; }
+  .author-stats b { font-size: 12pt; }
+  .author-stats span { font-size: 6.6pt; }
+  .stat b, .hero-lede strong, .author-stats b { -webkit-text-fill-color: currentColor; color: #8a4209 !important; background: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  a { color: inherit; }
+}
+@media print { .kicker, .section-title { break-after: avoid; page-break-after: avoid; } #work .grid { break-before: avoid; } }
