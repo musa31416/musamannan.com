@@ -544,3 +544,13 @@ body { font-size: 15.5px; line-height: 1.6; }
 /* larger portrait (1.5x) */
 .hero-grid { grid-template-columns: minmax(0, 1fr) clamp(280px, 33vw, 420px); }
 @media (max-width: 780px) { .hero-grid { grid-template-columns: 1fr; } .hero-photo { width: 285px; } }
+
+/* phones: photo sits right after the headline, before the polymath block */
+@media (max-width: 780px) {
+  .hero-grid { display: flex; flex-direction: column; gap: 0; align-items: stretch; }
+  .hero-grid > div { display: contents; }
+  .hero-grid .kicker, .hero-grid h1, .hero-grid .hero-lede { order: 1; }
+  .hero-photo { order: 2; margin: 6px 0 26px; align-self: center; }
+  .hero-grid .roles, .hero-grid .cta-row, .hero-grid .meta-row { order: 3; }
+  .hero .kicker { align-self: flex-start; }
+}
