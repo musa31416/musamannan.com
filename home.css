@@ -435,3 +435,4 @@ section + section { border-top: 0; }
 }
 .dict-pos { color: #1e3a5f; }
 @media (max-width: 620px) { .dict { padding: 14px 16px 16px; } }
+.author-link { margin: 28px 0 0; }
