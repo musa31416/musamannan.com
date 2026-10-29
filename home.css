@@ -422,3 +422,16 @@ section + section { border-top: 0; }
   .dict-word { font-size: 1.45rem; }
   .dict-def { font-size: 1rem; }
 }
+
+/* dictionary block: white card with dark blue rules top and bottom */
+.dict {
+  background: #ffffff;
+  border-left: 0;
+  border-top: 3px solid #1e3a5f;
+  border-bottom: 3px solid #1e3a5f;
+  padding: 16px 20px 18px;
+  margin: 10px 0 22px;
+  box-shadow: 0 6px 18px -10px rgba(30, 58, 95, 0.25);
+}
+.dict-pos { color: #1e3a5f; }
+@media (max-width: 620px) { .dict { padding: 14px 16px 16px; } }
