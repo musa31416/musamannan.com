@@ -537,3 +537,6 @@ body { font-size: 15.5px; line-height: 1.6; }
   a { color: inherit; }
 }
 @media print { .kicker, .section-title { break-after: avoid; page-break-after: avoid; } #work .grid { break-before: avoid; } }
+
+/* role popovers must sit above the stats row that follows the hero */
+.hero { z-index: 20; }
