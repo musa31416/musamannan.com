@@ -1,0 +1,311 @@
+/* ==========================================================================
+   Homepage polish layer. Loaded only by /index.html, after style.css.
+   Changes presentation only; markup and copy are untouched.
+   ========================================================================== */
+
+:root {
+  --ink:        #111418;
+  --ink-2:      #1b2027;
+  --ring:       linear-gradient(135deg, #c8762a 0%, #99500f 45%, #5b2d06 100%);
+  --copper-txt: linear-gradient(120deg, #b5651d 0%, #8a4209 100%);
+  --live:       #15803d;
+  --r-lg:       18px;
+}
+
+html, body { overflow-x: clip; }
+body { font-size: 16.5px; font-feature-settings: "cv11", "ss01", "ss03"; }
+
+/* ---------- Nav --------------------------------------------------------- */
+
+.nav { background: rgba(251, 250, 247, 0.78); border-bottom-color: rgba(0, 0, 0, 0.06); }
+.nav-inner { min-height: 66px; }
+.mark { font-weight: 650; font-size: 1.02rem; }
+.mark-badge { width: 34px; height: 34px; border: 0; box-shadow: 0 0 0 2px var(--bg), 0 0 0 3.5px #c8762a; }
+.nav-links { gap: 2px; }
+.nav-links a { border-radius: 999px; padding: 7px 14px; }
+.nav-links a:hover { background: rgba(17, 20, 24, 0.055); }
+.nav-links a[href="/resume.pdf"] {
+  margin-left: 8px;
+  background: var(--ink);
+  color: #fff;
+  font-weight: 600;
+  padding: 8px 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+}
+.nav-links a[href="/resume.pdf"]:hover { background: #2a313b; color: #fff; }
+
+/* ---------- Hero -------------------------------------------------------- */
+
+.hero { position: relative; padding-block: clamp(56px, 10vw, 112px) 64px; }
+
+/* fine dot grid that fades out toward the edges */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(50% - 50vw);
+  background-image: radial-gradient(rgba(17, 20, 24, 0.10) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(60% 70% at 62% 40%, #000 0%, transparent 75%);
+          mask-image: radial-gradient(60% 70% at 62% 40%, #000 0%, transparent 75%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hero .kicker {
+  display: inline-flex;
+  padding: 7px 14px;
+  border: 1px solid var(--accent-line);
+  background: rgba(253, 246, 236, 0.85);
+  border-radius: 999px;
+  letter-spacing: 0.13em;
+  margin-bottom: 26px;
+}
+.hero .kicker::after { display: none; }
+
+.hero h1 {
+  font-size: clamp(2.6rem, 7.4vw, 4.6rem);
+  font-weight: 720;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  margin-bottom: 24px;
+  background: linear-gradient(180deg, #14181d 30%, #3a4350 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  padding-bottom: 0.06em;
+}
+
+.hero-lede { font-size: clamp(1.12rem, 2.3vw, 1.36rem); color: #39414b; letter-spacing: -0.01em; max-width: 34em; }
+.hero-lede strong {
+  font-weight: 650;
+  background: var(--copper-txt);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+.hero-sub { font-size: 0.98rem; line-height: 1.72; color: var(--faint); }
+
+.btn { border-radius: 11px; padding: 13px 22px; font-weight: 600; }
+.btn-primary {
+  background: linear-gradient(180deg, #a85a14 0%, #8c4709 100%);
+  border-color: #7d410c;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 6px 18px rgba(153, 80, 15, 0.28);
+}
+.btn-primary:hover {
+  background: linear-gradient(180deg, #9a5111 0%, #7d410c 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 10px 26px rgba(153, 80, 15, 0.34);
+}
+.btn:not(.btn-primary) { background: rgba(255, 255, 255, 0.9); }
+
+.meta-row { gap: 10px; font-size: 0.82rem; }
+.meta-row span {
+  padding: 7px 13px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+  color: var(--dim);
+}
+.dot.live { background: var(--live); width: 7px; height: 7px; animation-name: pulse-live; }
+@keyframes pulse-live {
+  0%   { box-shadow: 0 0 0 0 rgba(21, 128, 61, 0.45); }
+  70%  { box-shadow: 0 0 0 8px rgba(21, 128, 61, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(21, 128, 61, 0); }
+}
+
+/* portrait: gradient ring, soft copper glow */
+.hero-grid { grid-template-columns: minmax(0, 1fr) clamp(210px, 25vw, 330px); }
+.hero-photo {
+  position: relative;
+  border: 0;
+  outline: 0;
+  padding: 5px;
+  background: var(--ring);
+  box-shadow: 0 30px 60px -18px rgba(91, 45, 6, 0.38), 0 0 0 10px rgba(200, 118, 42, 0.07);
+  overflow: visible;
+}
+.hero-photo img { border-radius: 50%; border: 4px solid var(--bg); }
+
+/* ---------- Stats ------------------------------------------------------- */
+
+section.wrap[style] { padding-bottom: 64px; }
+.stats { background: none; border: 0; box-shadow: none; gap: 14px; overflow: visible; }
+.stat {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px 22px 22px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--ring);
+  opacity: 0.85;
+}
+.stat:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.stat b {
+  font-size: clamp(1.8rem, 3vw, 2.15rem);
+  font-weight: 720;
+  letter-spacing: -0.04em;
+  background: var(--copper-txt);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  margin-bottom: 6px;
+}
+
+/* ---------- Section rhythm --------------------------------------------- */
+
+section { padding-block: 88px; }
+section + section { border-top: 0; }
+#focus { border-top: 1px solid var(--border); }
+
+.section-title { font-size: clamp(1.75rem, 3.8vw, 2.45rem); font-weight: 700; letter-spacing: -0.035em; margin-bottom: 14px; }
+.section-lede { font-size: 1.02rem; }
+#focus .section-title { margin-bottom: 38px; }
+
+/* projects sit on a recessed band so the page has rhythm */
+#work { position: relative; }
+#work::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(50% - 50vw);
+  background: var(--bg-2);
+  border-block: 1px solid var(--border);
+  z-index: -1;
+}
+
+/* ---------- Cards ------------------------------------------------------- */
+
+.card {
+  border-radius: var(--r-lg);
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--ring);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.card:hover::after { transform: scaleX(1); }
+.card:hover { border-color: var(--accent-line); box-shadow: 0 18px 40px -12px rgba(28, 20, 10, 0.16), 0 2px 6px rgba(28, 20, 10, 0.05); }
+.card h3 { font-size: 1.12rem; font-weight: 660; letter-spacing: -0.02em; line-height: 1.3; }
+.card .tags { margin-top: auto; padding-top: 18px; }
+
+.card-num {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 18px;
+}
+
+.tag { border-radius: 999px; padding: 4px 11px; font-size: 0.69rem; }
+
+/* venue line under each project, pinned to the card bottom */
+#work .card > p[style] {
+  margin-top: 16px !important;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border-hi);
+  color: var(--accent) !important;
+  font-weight: 600;
+}
+
+/* ---------- Contact: dark panel ----------------------------------------- */
+
+#contact { padding-block: 96px; }
+.contact-card {
+  background:
+    radial-gradient(700px 300px at 100% 0%, rgba(200, 118, 42, 0.22), transparent 60%),
+    linear-gradient(160deg, var(--ink-2) 0%, var(--ink) 100%);
+  border: 1px solid #262c35;
+  border-radius: 22px;
+  color: #e9ecef;
+  box-shadow: 0 30px 60px -24px rgba(17, 20, 24, 0.5);
+  padding: clamp(30px, 5.5vw, 54px);
+}
+.contact-card .kicker { color: #f0a868; }
+.contact-card .kicker::after { background: linear-gradient(90deg, rgba(255, 255, 255, 0.22), transparent); }
+.contact-card .section-title { color: #fff; }
+.contact-card .section-lede { color: #b8c0ca; }
+.contact-card a { color: #f6b77c; }
+.contact-card a:hover { color: #ffd2a6; }
+.contact-list {
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 10px;
+  margin-top: 32px;
+}
+.contact-list li {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 13px 16px;
+  color: #dfe3e8;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.contact-list li:hover { background: rgba(255, 255, 255, 0.075); border-color: rgba(246, 183, 124, 0.35); }
+.contact-list li { flex-wrap: nowrap; min-width: 0; }
+.contact-list li a { overflow-wrap: anywhere; }
+.contact-list dfn { color: #9aa4b0; min-width: 76px; }
+
+/* ---------- Authorship -------------------------------------------------- */
+
+.authorship { border-top: 1px solid var(--border); }
+.author-cover { border-radius: var(--r-lg); box-shadow: 0 24px 50px -20px rgba(28, 20, 10, 0.35); border: 0; }
+.author-stats b {
+  font-size: 1.75rem;
+  font-weight: 720;
+  background: var(--copper-txt);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+.shelf figure { border-radius: 6px; box-shadow: 0 10px 24px -8px rgba(28, 20, 10, 0.35); }
+
+/* ---------- Footer ------------------------------------------------------ */
+
+.foot { background: var(--bg); }
+
+/* ---------- Small screens ----------------------------------------------- */
+
+@media (max-width: 780px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 34px; }
+  .hero-photo { width: 190px; justify-self: start; }
+}
+
+@media (max-width: 620px) {
+  section { padding-block: 62px; }
+  #contact { padding-block: 62px; }
+  .nav-links a[href="/resume.pdf"] { margin-left: 0; }
+  .hero .kicker { font-size: 0.64rem; letter-spacing: 0.08em; padding: 6px 12px; }
+  .stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat { padding: 18px 16px; }
+  .card { padding: 24px 20px; }
+  .contact-list { grid-template-columns: 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+@media print {
+  .hero::before, #work::before { display: none; }
+  .hero h1, .stat b, .hero-lede strong, .author-stats b { background: none; color: #000; }
+  .contact-card { background: #fff; color: #000; }
+}
