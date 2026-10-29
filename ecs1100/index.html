@@ -1,98 +1,263 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ECS 1100 Job Boards | Musa Ibne Mannan</title>
-<meta name="description" content="Job and internship boards for UT Dallas ECS 1100 students, sorted by major, with a saved PDF of every posting.">
+<meta name="description" content="Internship and entry-level job boards for UT Dallas ECS 1100 students, sorted by major, with a saved PDF of every posting.">
 <link rel="canonical" href="https://musamannan.com/ecs1100/">
-<meta name="theme-color" content="#fbfaf7">
+<meta name="theme-color" content="#f6f3f0">
+<meta property="og:title" content="ECS 1100 Job Boards">
+<meta property="og:description" content="Five industry job boards for first-year engineering and CS students at UT Dallas.">
+<meta property="og:url" content="https://musamannan.com/ecs1100/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&amp;family=Ubuntu+Mono:wght@400;700&amp;display=swap">
+<script>
+  try { if (localStorage.getItem('ecs-theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+</script>
 <style>
-  .sector-link { display: block; color: inherit; height: 100%; }
-  .sector-link:hover { text-decoration: none; color: inherit; }
-  .sector-link:hover .card { border-color: var(--accent-line); box-shadow: var(--shadow-md); transform: translateY(-2px); }
-  .sector-link .card { height: 100%; }
-  .sector-link .go { margin-top: 14px; font-weight: 600; color: var(--accent); font-size: 0.92rem; }
+  :root, :root[data-theme="light"] {
+    --bg: #f6f3f0;
+    --grid: rgba(48, 10, 36, 0.05);
+    --win: #fffdfb;
+    --bar: #ebe5e1;
+    --bar-text: #5a4652;
+    --border: #ddd3cd;
+    --text: #2b1724;
+    --dim: #5f4c58;
+    --faint: #7a6773;
+    --prompt-user: #3d7a0d;
+    --prompt-path: #2b5ea8;
+    --orange: #c2410c;
+    --orange-glow: rgba(233, 84, 32, 0.28);
+    --card: #fffdfb;
+    --c-ai: #3d7a0d;   --g-ai: rgba(78, 154, 6, 0.30);
+    --c-sc: #2b5ea8;   --g-sc: rgba(52, 101, 164, 0.30);
+    --c-hi: #b4232c;   --g-hi: rgba(204, 0, 0, 0.24);
+    --c-en: #8a6d00;   --g-en: rgba(196, 160, 0, 0.32);
+    --c-co: #7a4f7a;   --g-co: rgba(117, 80, 123, 0.30);
+    --shadow: 0 18px 50px rgba(48, 10, 36, 0.10), 0 2px 6px rgba(48, 10, 36, 0.06);
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    --bg: #1d0716;
+    --grid: rgba(255, 255, 255, 0.035);
+    --win: #2c0a22;
+    --bar: #3b1430;
+    --bar-text: #d9c6d2;
+    --border: #4d2242;
+    --text: #f3e9ef;
+    --dim: #cdb8c5;
+    --faint: #a68f9d;
+    --prompt-user: #8ae234;
+    --prompt-path: #8fb6ec;
+    --orange: #ff7a45;
+    --orange-glow: rgba(255, 122, 69, 0.35);
+    --card: #34102a;
+    --c-ai: #8ae234;   --g-ai: rgba(138, 226, 52, 0.38);
+    --c-sc: #8fb6ec;   --g-sc: rgba(114, 159, 207, 0.42);
+    --c-hi: #ff7b7b;   --g-hi: rgba(239, 41, 41, 0.38);
+    --c-en: #fce94f;   --g-en: rgba(252, 233, 79, 0.32);
+    --c-co: #d6a6d1;   --g-co: rgba(173, 127, 168, 0.45);
+    --shadow: 0 18px 60px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color: var(--text);
+    font-family: "Ubuntu", system-ui, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+  a { color: inherit; }
+  .mono { font-family: "Ubuntu Mono", ui-monospace, Menlo, Consolas, monospace; }
+
+  .page { max-width: 1040px; margin: 0 auto; padding: 40px 16px 48px; }
+
+  .topline { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+  .home { font-family: "Ubuntu Mono", monospace; font-size: 15px; color: var(--dim); text-decoration: none; }
+  .home:hover { color: var(--orange); }
+  .toggle {
+    font: 700 14px "Ubuntu Mono", monospace;
+    background: var(--win); color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 7px 12px; cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s, color 0.2s;
+  }
+  .toggle:hover, .toggle:focus-visible { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-glow); color: var(--orange); outline: none; }
+
+  /* terminal window */
+  .term { background: var(--win); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; transition: background-color 0.25s, border-color 0.25s; }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--bar); color: var(--bar-text); padding: 9px 14px; border-bottom: 1px solid var(--border); }
+  .bar-title { font: 500 14px "Ubuntu", sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dots { display: flex; gap: 7px; flex: none; }
+  .dots span { width: 13px; height: 13px; border-radius: 50%; background: #9b8b94; opacity: 0.55; }
+  .dots span:last-child { background: #e95420; opacity: 1; }
+
+  .screen { padding: 26px 26px 30px; }
+  .line { font-family: "Ubuntu Mono", monospace; font-size: 17px; margin: 0 0 4px; overflow-wrap: anywhere; }
+  .u { color: var(--prompt-user); font-weight: 700; }
+  .p { color: var(--prompt-path); font-weight: 700; }
+  .out { color: var(--dim); }
+  .cursor { display: inline-block; width: 0.6em; height: 1.05em; vertical-align: -0.18em; background: var(--orange); margin-left: 2px; animation: blink 1.05s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  h1 { font: 700 clamp(30px, 5.4vw, 50px)/1.08 "Ubuntu", sans-serif; letter-spacing: -0.01em; margin: 22px 0 10px; }
+  h1 .hl { color: var(--orange); }
+  .lede { color: var(--dim); font-size: 17px; max-width: 700px; margin: 0 0 26px; }
+
+  /* sector buttons */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; margin-top: 8px; }
+  .sector {
+    --c: var(--orange); --g: var(--orange-glow);
+    position: relative; display: flex; flex-direction: column; gap: 6px;
+    text-decoration: none; color: var(--text);
+    background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--c);
+    border-radius: 10px; padding: 18px 18px 16px;
+    transition: transform 0.18s ease, box-shadow 0.22s ease, border-color 0.22s ease, background-color 0.22s ease;
+  }
+  .sector.ai { --c: var(--c-ai); --g: var(--g-ai); }
+  .sector.sc { --c: var(--c-sc); --g: var(--g-sc); }
+  .sector.hi { --c: var(--c-hi); --g: var(--g-hi); }
+  .sector.en { --c: var(--c-en); --g: var(--g-en); }
+  .sector.co { --c: var(--c-co); --g: var(--g-co); }
+  .cmd { font: 700 15px "Ubuntu Mono", monospace; color: var(--c); }
+  .cmd .dollar { color: var(--faint); font-weight: 400; }
+  .sector h2 { font: 700 20px/1.25 "Ubuntu", sans-serif; margin: 2px 0 0; transition: color 0.2s; }
+  .sector p { margin: 0; color: var(--dim); font-size: 15px; }
+  .enter { margin-top: 10px; font: 700 14px "Ubuntu Mono", monospace; color: var(--faint); display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+  .enter .arrow { transition: transform 0.2s; }
+  .enter .blk { display: inline-block; width: 0.55em; height: 1em; background: var(--c); opacity: 0; }
+
+  .sector:hover, .sector:focus-visible {
+    outline: none;
+    transform: translateY(-3px);
+    border-color: var(--c);
+    background-color: color-mix(in srgb, var(--c) 7%, var(--card));
+    box-shadow: 0 0 0 1px var(--c), 0 0 22px var(--g), 0 0 46px var(--g);
+  }
+  .sector:hover h2, .sector:focus-visible h2 { color: var(--c); }
+  .sector:hover .enter, .sector:focus-visible .enter { color: var(--c); }
+  .sector:hover .arrow, .sector:focus-visible .arrow { transform: translateX(4px); }
+  .sector:hover .blk, .sector:focus-visible .blk { opacity: 1; animation: blink 1.05s steps(1) infinite; }
+  .sector:active { transform: translateY(-1px); }
+
+  .tail { margin-top: 26px; }
+  .status {
+    display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: space-between;
+    font: 400 14px "Ubuntu Mono", monospace; color: var(--bar-text);
+    background: var(--bar); border-top: 1px solid var(--border); padding: 8px 14px;
+  }
+  .status b { color: var(--orange); font-weight: 700; }
+
+  .foot { text-align: center; margin-top: 22px; font: 14px "Ubuntu Mono", monospace; color: var(--faint); }
+  .foot a { color: var(--dim); }
+  .foot a:hover { color: var(--orange); }
+
+  @media (max-width: 560px) {
+    .page { padding-top: 22px; }
+    .screen { padding: 20px 16px 24px; }
+    .line { font-size: 15px; }
+    .grid { grid-template-columns: 1fr; }
+    .bar-title { font-size: 13px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .sector:hover, .sector:focus-visible { transform: none; }
+  }
 </style>
 </head>
 <body>
+<div class="page">
 
-<nav class="nav">
-  <div class="wrap nav-inner">
-    <a class="mark" href="/"><img class="mark-badge" src="/img/avatar.jpg" alt="" width="32" height="32"> Musa Ibne Mannan</a>
-    <div class="nav-links">
-      <a href="/resume/">Résumé</a>
-      <a href="/cv/">CV</a>
-      <a href="/ecs1100/" aria-current="page">ECS 1100</a>
-      <a href="/#work">Work</a>
-      <a href="/#contact">Contact</a>
+  <div class="topline">
+    <a class="home" href="/">&larr; cd ~ (musamannan.com)</a>
+    <button class="toggle" id="toggle" type="button" aria-label="Switch color theme">[ theme: light ]</button>
+  </div>
+
+  <section class="term" aria-label="ECS 1100 job boards">
+    <div class="bar">
+      <span class="bar-title">student@utd: ~/ecs1100</span>
+      <span class="dots" aria-hidden="true"><span></span><span></span><span></span></span>
     </div>
-  </div>
-</nav>
 
-<main class="wrap doc">
-  <header class="doc-head">
-    <p class="kicker">ECS 1100</p>
-    <h1>Job boards by industry</h1>
-    <p class="section-lede">Internships, co-ops and entry-level jobs I collected for first-year engineering and computer science students at UT Dallas. Each board sorts postings by major, lists Dallas-Fort Worth openings first, then the rest of Texas and the U.S., and keeps a saved PDF of every posting in case the original link goes down.</p>
-  </header>
+    <div class="screen">
+      <p class="line"><span class="u">student@utd</span>:<span class="p">~/ecs1100</span>$ cat README</p>
+      <h1>Find your first <span class="hl">engineering job.</span></h1>
+      <p class="lede">Internships, co-ops and entry-level roles collected for UT Dallas ECS 1100 students. Every board is sorted by major, lists Dallas-Fort Worth openings first, then Texas, then the rest of the U.S., and keeps a saved PDF of each posting in case the original link disappears.</p>
 
-  <div class="grid grid-3">
-    <a class="sector-link" href="/ecs1100/ai/"><article class="card">
-      <span class="card-num">AI</span>
-      <h3>Artificial Intelligence and Machine Learning</h3>
-      <p>Roles in machine learning, data, AI software and the hardware behind it.</p>
-      <p class="go">Open board &rarr;</p>
-    </article></a>
+      <p class="line"><span class="u">student@utd</span>:<span class="p">~/ecs1100</span>$ ls boards/</p>
+      <p class="line out" style="margin-bottom:14px">5 boards found. pick one:</p>
 
-    <a class="sector-link" href="/ecs1100/semiconductor/"><article class="card">
-      <span class="card-num">SEMICONDUCTORS</span>
-      <h3>Semiconductors and Microelectronics</h3>
-      <p>Chip design, fabrication, test, packaging and equipment.</p>
-      <p class="go">Open board &rarr;</p>
-    </article></a>
+      <nav class="grid" aria-label="Sector job boards">
+        <a class="sector ai" href="/ecs1100/ai/">
+          <span class="cmd"><span class="dollar">$</span> cd ai/</span>
+          <h2>AI and Machine Learning</h2>
+          <p>Machine learning, data, AI software and the hardware it runs on.</p>
+          <span class="enter">[enter] open board <span class="arrow">&rarr;</span><span class="blk" aria-hidden="true"></span></span>
+        </a>
+        <a class="sector sc" href="/ecs1100/semiconductor/">
+          <span class="cmd"><span class="dollar">$</span> cd semiconductor/</span>
+          <h2>Semiconductors and Microelectronics</h2>
+          <p>Chip design, fabrication, test, packaging and equipment.</p>
+          <span class="enter">[enter] open board <span class="arrow">&rarr;</span><span class="blk" aria-hidden="true"></span></span>
+        </a>
+        <a class="sector hi" href="/ecs1100/health/">
+          <span class="cmd"><span class="dollar">$</span> cd health/</span>
+          <h2>Health Innovations and Medical Devices</h2>
+          <p>Medical devices, diagnostics, health tech and biomedical research.</p>
+          <span class="enter">[enter] open board <span class="arrow">&rarr;</span><span class="blk" aria-hidden="true"></span></span>
+        </a>
+        <a class="sector en" href="/ecs1100/energy/">
+          <span class="cmd"><span class="dollar">$</span> cd energy/</span>
+          <h2>Energy Science and Technology</h2>
+          <p>Power, utilities, renewables, batteries, oil and gas, and the grid.</p>
+          <span class="enter">[enter] open board <span class="arrow">&rarr;</span><span class="blk" aria-hidden="true"></span></span>
+        </a>
+        <a class="sector co" href="/ecs1100/consulting/">
+          <span class="cmd"><span class="dollar">$</span> cd consulting/</span>
+          <h2>Consulting and Engineering Services</h2>
+          <p>Engineering design firms, technical consulting and IT services.</p>
+          <span class="enter">[enter] open board <span class="arrow">&rarr;</span><span class="blk" aria-hidden="true"></span></span>
+        </a>
+      </nav>
 
-    <a class="sector-link" href="/ecs1100/health/"><article class="card">
-      <span class="card-num">HEALTH</span>
-      <h3>Health Innovations and Medical Devices</h3>
-      <p>Medical devices, diagnostics, health technology and biomedical research.</p>
-      <p class="go">Open board &rarr;</p>
-    </article></a>
+      <p class="line tail"><span class="u">student@utd</span>:<span class="p">~/ecs1100</span>$ echo "postings close fast, check the employer page before you apply"<span class="cursor" aria-hidden="true"></span></p>
+    </div>
 
-    <a class="sector-link" href="/ecs1100/energy/"><article class="card">
-      <span class="card-num">ENERGY</span>
-      <h3>Energy Science and Technology</h3>
-      <p>Power, utilities, renewables, batteries, oil and gas, and grid engineering.</p>
-      <p class="go">Open board &rarr;</p>
-    </article></a>
+    <div class="status" aria-hidden="true">
+      <span><b>5</b> boards &middot; 10 majors &middot; DFW first</span>
+      <span>every posting saved as PDF</span>
+    </div>
+  </section>
 
-    <a class="sector-link" href="/ecs1100/consulting/"><article class="card">
-      <span class="card-num">CONSULTING</span>
-      <h3>Consulting and Engineering Services</h3>
-      <p>Engineering design firms, technical consulting and IT services.</p>
-      <p class="go">Open board &rarr;</p>
-    </article></a>
-  </div>
+  <p class="foot">built by <a href="/">Musa Ibne Mannan</a> for ECS 1100 at UT Dallas</p>
+</div>
 
-  <p class="doc-note" style="margin-top:36px">Postings close often. Check the employer's own page before you apply.</p>
-</main>
-
-<footer class="foot">
-  <div class="wrap foot-inner">
-    <span>&copy; 2026 Musa Ibne Mannan</span>
-    <span class="foot-links">
-      <a href="/resume/">Résumé</a>
-      <a href="/cv/">CV</a>
-      <a href="/ecs1100/">ECS 1100</a>
-      <a href="https://www.linkedin.com/in/musa314/" rel="me">LinkedIn</a>
-      <a href="mailto:musa314@utdallas.edu">Email</a>
-    </span>
-  </div>
-</footer>
+<script>
+  (function () {
+    var root = document.documentElement, btn = document.getElementById('toggle');
+    function label() { btn.textContent = '[ theme: ' + (root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light') + ' ]'; }
+    label();
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', next === 'dark' ? '#1d0716' : '#f6f3f0');
+      try { localStorage.setItem('ecs-theme', next); } catch (e) {}
+      label();
+    });
+  })();
+</script>
 </body>
 </html>
