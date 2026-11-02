@@ -187,3 +187,4 @@
 @media (prefers-reduced-motion:reduce) {
   *,*::before,*::after { transition:none!important; }
 }
+@media(max-width:700px){.ledger li a{flex-direction:column;gap:2px;justify-content:flex-start}}
