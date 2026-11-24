@@ -23,15 +23,17 @@
 <style>
 .nav-drop { position: relative; display: inline-flex; align-items: center; }
 .nav-links .nav-drop-btn {
-  display: inline-flex; align-items: center; gap: .5rem;
-  padding: .45rem .7rem; border: 1px solid #234874; border-radius: 9px;
-  font: inherit; font-weight: 700; line-height: 1.2; white-space: nowrap;
-  color: #fff; background: linear-gradient(135deg, #193352, #295582);
-  box-shadow: 0 2px 5px rgba(22, 50, 83, .22); cursor: pointer;
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: 7px 14px; border: 1px solid #c9dcf0; border-radius: 999px;
+  font: inherit; font-weight: 600; line-height: 1.2; white-space: nowrap;
+  color: #1d4f82; background: #eaf3fc; cursor: pointer;
+  transition: background .15s, border-color .15s, transform .15s;
 }
 .nav-links .nav-drop-btn:hover, .nav-links .nav-drop-btn[aria-expanded="true"] {
-  background: linear-gradient(135deg, #24476e, #33689a);
+  background: #dbeafa; border-color: #a9c8e8; transform: translateY(-1px);
 }
+.nav-drop-btn .spark { display: inline-block; font-size: .85em; transition: transform .3s; }
+.nav-drop-btn:hover .spark, .nav-drop-btn[aria-expanded="true"] .spark { transform: rotate(72deg); }
 .nav-drop-btn:focus-visible, #tools-menu a:focus-visible {
   outline: 2px solid #2563a6; outline-offset: 2px;
 }
@@ -59,11 +61,7 @@
 .tool-name { display: block; font-weight: 700; font-size: .9rem; line-height: 1.3; color: #102b49; }
 .tool-desc { display: block; font-size: .8rem; line-height: 1.5; color: #3c4e65; margin-top: 4px; font-weight: 400; }
 .tool-url { display: block; font-size: .75rem; color: #526980; margin-top: 4px; font-weight: 400; }
-.tool-featured { padding: 15px; margin-bottom: 8px; border: 1px solid #d8e6f4; border-radius: 10px; background: #f3f8fd; }
-.tool-featured .tool-name { font-size: 1.05rem; }
-.tool-featured p { margin: 7px 0 0; }
-#tools-menu .tool-featured a { padding: 0; border-radius: 2px; font-size: inherit; color: #224f7e; text-decoration: underline; text-underline-offset: 2px; }
-#tools-menu .tool-featured .tool-name { font-size: 1.05rem; }
+.tool-new { display: inline-block; margin-left: 4px; padding: 1px 7px; border-radius: 999px; font-size: .68rem; font-weight: 600; vertical-align: 2px; color: #1d4f82; background: #dbeafa; }
 @media (max-width: 540px) {
   .tools-grid { grid-template-columns: 1fr; }
 }
@@ -79,15 +77,15 @@
       <a href="/cv/">CV</a>
       <a href="/ecs1100/">ECS 1100</a>
       <div class="nav-drop">
-        <button class="nav-drop-btn" type="button" aria-expanded="false" aria-controls="tools-menu"><span aria-hidden="true">▦</span> Tools I made</button>
+        <button class="nav-drop-btn" type="button" aria-expanded="false" aria-controls="tools-menu"><span class="spark" aria-hidden="true">✦</span> Tools I made</button>
         <div class="nav-drop-menu" id="tools-menu" hidden>
           <div class="nav-drop-panel">
-            <article class="tool-featured" aria-labelledby="blasphemy-map-name">
-              <a class="tool-name" id="blasphemy-map-name" href="https://aagebangladesh.org/blasphemy/">Bangladesh Blasphemy Map <span aria-hidden="true">↗</span></a>
-              <p class="tool-desc">A map and case register of reported incidents in Bangladesh from 1994 to 2026. It documents beatings, killings, and attacks on homes, temples, and shrines over allegations of insulting religion. It also records arrests, jailings, convictions, lawsuits, suspensions, expulsions, dismissals, transfers, and forced displacement over allegations of “hurting religious sentiment,” as well as people targeted by crowds or campaigns who had faced no further punishment as of the published report. Each entry includes a source reference.</p>
-              <p class="tool-desc">Bangladeshi crime novelist <a href="https://kpimon.com/">Kishor Pasha Imon</a>, also known as <a href="https://musamannan.com/">Musa Ibne Mannan</a>, a PhD candidate at UT Dallas, compiled the map from published news reports. Further research may uncover additional cases. He donated the map to <a href="https://aagebangladesh.org/">Aage Bangladesh</a>, a Bangladeshi nonprofit that advocates for putting Bangladeshis first.</p>
-            </article>
             <div class="tools-grid">
+              <a class="tool" href="https://aagebangladesh.org/blasphemy/">
+                <span class="tool-name">Bangladesh Blasphemy Map <span class="tool-new">New</span></span>
+                <span class="tool-desc">A sourced map of blasphemy-allegation attacks, arrests and punishments in Bangladesh, 1994 to 2026.</span>
+                <span class="tool-url">aagebangladesh.org/blasphemy</span>
+              </a>
               <a class="tool" href="https://musamannan.com/Mos2/">
                 <span class="tool-name">Raman Calibration Tool</span>
                 <span class="tool-desc">Calibrates Raman spectra for MoS<sub>2</sub> samples, built from the work in my CVD line.</span>
