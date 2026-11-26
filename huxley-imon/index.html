@@ -129,7 +129,7 @@
   <section class="stage">
     <div class="figure">
       <h2 id="figTitle"></h2>
-      <div class="plot" id="plot"><svg id="grid" viewBox="0 0 880 550" role="img" aria-labelledby="figTitle"></svg><div class="bubble" id="bubble" aria-live="polite"></div></div>
+      <div class="plot" id="plot"><svg id="grid" viewBox="0 0 930 550" role="img" aria-labelledby="figTitle"></svg><div class="bubble" id="bubble" aria-live="polite"></div></div>
       <div class="nums" id="nums"><span>Person</span></div>
       <div class="spot" id="spot" aria-live="polite"></div>
     </div>
@@ -287,7 +287,7 @@
   ];
 
   // ---------- geometry ----------
-  var O = {x:170, y:462};      // front-left floor corner
+  var O = {x:160, y:462};      // front-left floor corner
   var W = 140;                  // cell width along method axis
   var D = {x:58, y:-40};        // depth step per need row
   var WALL = 340;               // wall height
@@ -397,7 +397,7 @@
       bubble.querySelector(".x").addEventListener("click",function(e){ e.stopPropagation(); sel=null; refresh(); });
       bubbleFor = key;
     }
-    var pw = plot.clientWidth, ph = plot.clientHeight, sc = pw/880;
+    var pw = plot.clientWidth, ph = plot.clientHeight, sc = pw/930;
     var hx = selHead.x*sc, hy = selHead.y*sc, hr = selHead.r*sc;
     var bw = bubble.offsetWidth, bh = bubble.offsetHeight, gap = 18;
     var left = Math.max(4, Math.min(pw - bw - 4, hx - bw/2));
