@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Label, Nine People | The Huxley–Imon Classification</title>
+<meta name="description" content="Nine people who share one religious label can stand on nine different cells of the Huxley–Imon method–need grid. Pick a label and see where each person stands.">
+<link rel="canonical" href="https://musamannan.com/huxley-imon/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:title" content="One Label, Nine People | The Huxley–Imon Classification">
+<meta property="og:description" content="Pick a religious label and see nine people who share it stand on nine different cells of the method–need grid.">
+<meta property="og:url" content="https://musamannan.com/huxley-imon/">
+<style>
+  :root{
+    --ink:#1d2340; --muted:#6c7084; --rule:#dcd8cf; --paper:#fbfaf7; --card:#ffffff;
+    --theist:#d7192e; --agn:#4b2fe0; --ath:#e2c21b;
+    --warm:#b5542a; --cool:#2f5ea8;
+    --dep:#f6d3b8; --sit:#e4dcf0; --ind:#cfe9d9; --agcol:#cdd9ee;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,"Times New Roman",Times,serif;line-height:1.5}
+  .wrap{max-width:1260px;margin:0 auto;padding:44px 24px 72px}
+  .kicker{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  h1{font-weight:normal;font-size:clamp(28px,4.2vw,46px);line-height:1.12;margin:.35em 0 .45em;max-width:900px}
+  .lede{font-size:clamp(16px,1.6vw,19px);max-width:780px;margin:0}
+  .lede em{color:var(--warm);font-style:italic}
+
+  .pick{margin:34px 0 6px}
+  .pick-label{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .labels{display:flex;flex-wrap:wrap;gap:10px}
+  .labels button{
+    font:inherit;font-size:16px;color:var(--ink);background:#fff;border:1.5px solid var(--rule);
+    padding:10px 18px;border-radius:999px;cursor:pointer;transition:all .18s ease;
+  }
+  .labels button:hover{border-color:var(--ink)}
+  .labels button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .labels button:focus-visible,.nums button:focus-visible,.card:focus-visible{outline:3px solid var(--cool);outline-offset:2px}
+
+  .stage{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,1fr);gap:36px;align-items:start;margin-top:26px}
+  @media (max-width:960px){.stage{grid-template-columns:1fr}}
+
+  .figure{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:14px 10px 18px}
+  .figure h2{font-weight:normal;font-size:clamp(18px,2vw,23px);margin:6px 14px 0}
+  .figure h2 b{font-weight:bold}
+  svg{display:block;width:100%;height:auto}
+  svg text{font-family:Georgia,"Times New Roman",Times,serif}
+  .pin{cursor:pointer}
+  .pin:focus{outline:none}
+  .pin:focus-visible circle.head{stroke:var(--ink);stroke-width:3}
+  .ring{transform-box:fill-box;transform-origin:center;animation:pulse 1.6s ease-out infinite}
+  @keyframes pulse{0%{transform:scale(.8);opacity:.7}100%{transform:scale(1.5);opacity:0}}
+
+  .nums{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:6px 14px 0}
+  .nums span{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+  .nums button{
+    width:38px;height:38px;border-radius:50%;border:2px solid #fff;font:bold 15px Georgia,serif;cursor:pointer;
+    box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .15s ease,opacity .15s ease;
+  }
+  .nums button:hover{transform:scale(1.12)}
+  .nums button[aria-pressed="true"]{transform:scale(1.22);box-shadow:0 0 0 3px var(--ink)}
+  .nums .clear{width:auto;height:auto;border-radius:999px;border:1.5px solid var(--rule);background:#fff;color:var(--ink);font:14px Georgia,serif;padding:8px 14px;box-shadow:none}
+  .nums .clear:hover{transform:none;border-color:var(--ink)}
+
+  .spot{display:none;margin:14px 14px 0;padding:14px 16px;border-radius:10px;background:var(--paper);border-left:5px solid var(--ink);font-size:17px}
+  .spot .cell{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
+  @media (max-width:960px){.spot.show{display:block}}
+
+  .side h3{font-weight:normal;font-size:15px;letter-spacing:.16em;text-transform:uppercase;margin:4px 0 14px}
+  .list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .card{
+    display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start;padding:9px 12px;border-radius:10px;
+    border:1px solid transparent;border-left:4px solid transparent;cursor:pointer;font-size:15px;line-height:1.42;
+    transition:transform .25s ease,box-shadow .25s ease,background .25s ease,opacity .25s ease,font-size .25s ease;transform-origin:left center;
+  }
+  .card:hover{background:#fff;border-color:var(--rule)}
+  .card .badge{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:13px;border:2px solid #fff;box-shadow:0 1px 2px rgba(0,0,0,.25);margin-top:1px}
+  .card .cell{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+  .list.has-sel .card{opacity:.45}
+  .list.has-sel .card.sel{opacity:1}
+  .card.sel{background:#fff;border-color:var(--rule);box-shadow:0 10px 28px rgba(29,35,64,.16);transform:scale(1.05);font-size:16.5px;position:relative;z-index:2}
+  .card.sel .badge{width:34px;height:34px;font-size:15px}
+  .foot-note{font-style:italic;color:#6b2a1a;font-size:14px;margin-top:16px}
+
+  .lenses{margin-top:56px;border-top:1px solid var(--rule);padding-top:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  @media (max-width:820px){.lenses{grid-template-columns:1fr}}
+  .lenses h4{font-weight:normal;font-size:13px;letter-spacing:.18em;text-transform:uppercase;margin:0 0 8px;color:var(--warm)}
+  .lenses p{margin:0 0 8px;font-size:15.5px}
+  .lenses .row{display:flex;gap:8px;align-items:baseline;font-size:15px;margin:4px 0}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block;flex:0 0 auto;transform:translateY(1px)}
+  .sq{width:12px;height:12px;border-radius:2px;display:inline-block;flex:0 0 auto;transform:translateY(1px)}
+  .cite{margin-top:34px;font-size:14px;color:var(--muted)}
+  .cite a{color:var(--cool)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">The Huxley–Imon Classification</div>
+    <h1>Nine people can carry the same label and stand in nine different places.</h1>
+    <p class="lede">A label a person picks for themself can't place them. Pick a label below to meet nine people who all claim it. Each one holds their position differently (<em>method</em>) and needs God to a different degree (<em>need</em>), so each stands on a different cell of the floor. The label only sets the height.</p>
+  </header>
+
+  <section class="pick" aria-label="Choose a self-declared label">
+    <div class="pick-label">Pick a label</div>
+    <div class="labels" id="labels"></div>
+  </section>
+
+  <section class="stage">
+    <div class="figure">
+      <h2 id="figTitle"></h2>
+      <svg id="grid" viewBox="0 0 880 550" role="img" aria-labelledby="figTitle"></svg>
+      <div class="nums" id="nums"><span>Person</span></div>
+      <div class="spot" id="spot" aria-live="polite"></div>
+    </div>
+    <aside class="side">
+      <h3 id="listTitle"></h3>
+      <ol class="list" id="list"></ol>
+      <p class="foot-note" id="footNote"></p>
+    </aside>
+  </section>
+
+  <section class="lenses" aria-label="How to read the grid">
+    <div>
+      <h4>Lens One · Method</h4>
+      <p>Did the position come before the reasoning, or after it?</p>
+      <div class="row"><span class="dot" style="background:var(--theist)"></span><span><b>Theist:</b> holds that there is a God before any reasoning.</span></div>
+      <div class="row"><span class="dot" style="background:var(--agn)"></span><span><b>Agnostic:</b> reasons first, whatever the conclusion, and would revise it if the reasons changed.</span></div>
+      <div class="row"><span class="dot" style="background:var(--ath)"></span><span><b>Atheist:</b> holds a position without God before any reasoning.</span></div>
+    </div>
+    <div>
+      <h4>Lens Two · Identity</h4>
+      <p>What does the person call themself? Identity is recorded as a tag (the height of the pin) and is never used to place the person on the floor.</p>
+    </div>
+    <div>
+      <h4>Lens Three · Need</h4>
+      <p>How often does the person need God, for any reason at all?</p>
+      <div class="row"><span class="sq" style="background:var(--dep)"></span><span><b>God-dependent:</b> always.</span></div>
+      <div class="row"><span class="sq" style="background:var(--sit)"></span><span><b>God-situational:</b> sometimes, in crisis or when it pays.</span></div>
+      <div class="row"><span class="sq" style="background:var(--ind)"></span><span><b>God-independent:</b> never.</span></div>
+    </div>
+  </section>
+
+  <p class="cite">Adapted from <i>The Huxley–Imon Classification of Homo sapiens: Identity–Need–Method Definitions of Atheism</i>, by Kishor Pasha Imon (aka Musa Ibne Mannan), November 2026. The people described here are illustrative composites; placing a real person is an inference from everything known about how that person holds their position.</p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var METHODS = ["Theist","Agnostic","Atheist"];
+  var NEEDS = ["God-dependent","God-situational","God-independent"];
+  var PIN = [
+    {fill:"#d7192e", text:"#fff", stem:"#b5542a"},
+    {fill:"#4b2fe0", text:"#fff", stem:"#2f5ea8"},
+    {fill:"#e2c21b", text:"#1d2340", stem:"#b5542a"}
+  ];
+  // Identity axis, bottom to top
+  var AXIS = ["Muslim","Christian","Hindu","Jewish","“Agnostic”","“Atheist”","“Don’t care”"];
+
+  // People 1-9: cell i -> method i%3, need floor(i/3)
+  var LABELS = [
+    {key:"atheist", button:"Atheist", level:5,
+     title:'Nine people who all call themselves <b>“atheist”</b>',
+     list:"“Atheist” placement example",
+     foot:"A self-declared atheist can stand on any of the nine cells of the floor.",
+     people:[
+      "Rejects organized religion, yet holds a higher power first and leans on it every day.",
+      "Was a Muslim or Christian once, read widely in peer-reviewed journals and reasoned to disbelief, yet relies on ritual and community to get through each day. A cultural Christian or cultural Muslim.",
+      "Never believed in God. Builds a career and a community on opposing God.",
+      "Says atheist, but believes in a higher power. Turns to it in a crisis.",
+      "Reasoned to disbelief, and still prays when the storm comes.",
+      "Never believed in God. A religious upbringing makes him pray the night before an exam or before a job interview.",
+      "Public and social record says atheist. Privately fancies the idea of God and believes, but never calls on a higher power.",
+      "Reasoned to disbelief and is at peace without God.",
+      "Holds “no God” first and has no use for God."
+     ]},
+    {key:"agnostic", button:"Agnostic", level:4,
+     title:'Nine people who all call themselves <b>“agnostic”</b>',
+     list:"“Agnostic” placement example",
+     foot:"A self-declared agnostic can stand on any of the nine cells of the floor.",
+     people:[
+      "Says agnostic because it sounds open-minded. Has believed in God since childhood and prays every day.",
+      "Worked through the arguments and keeps the question open, yet depends on a religious community and its rituals for daily life.",
+      "Holds “no God” first and will not move on it, but says agnostic to keep the peace with a devout spouse whose community runs the family’s life.",
+      "Says agnostic, yet holds God first. Turns to God when a crisis hits.",
+      "Reasoned that the question is still open. Prays when the plane hits turbulence.",
+      "Never believed in God and uses agnostic as the softer word. Prays anyway when frightened.",
+      "Says agnostic, but believes in a higher power out of habit and never calls on it.",
+      "Reasoned to a position, holds it open to new evidence, and lives at peace without God. Huxley’s own case.",
+      "Holds “no God” first and never examined it. Says agnostic to sound less blunt. Has no use for God."
+     ]},
+    {key:"christian", button:"Christian", level:1,
+     title:'Nine people who all call themselves <b>Christian</b>',
+     list:"“Christian” placement example",
+     foot:"A Christian can stand on any of the nine cells of the floor.",
+     people:[
+      "Raised in the church and never questioned it. Reads the Bible, prays daily and leans on God in every part of life.",
+      "Read the Gospels, the apologists and their critics, and concluded Christ is the only truth and savior. Depends on prayer and church every day.",
+      "Privately holds “no God” and never reasoned about it, yet needs the church for family standing and a job at a Christian school.",
+      "Holds the faith first. Goes to church at Christmas and Easter, and calls on God at funerals and in the hospital.",
+      "Weighed the arguments and settled on a liberal Christianity. Prays when a test result comes back bad or the bills pile up.",
+      "Never believed in God, yet says a prayer before a job interview because that is what the family always did.",
+      "Inherited the faith and never examined it. Lives a full life without ever calling on God.",
+      "Reasoned away from belief. Keeps the label so as not to upset parents and the congregation.",
+      "Holds “no God” first and has no use for God. “Christian” survives only on old paperwork."
+     ]},
+    {key:"muslim", button:"Muslim", level:0,
+     title:'Nine people who all call themselves <b>Muslim</b>',
+     list:"“Muslim” placement example",
+     foot:"A Muslim can stand on any of the nine cells of the floor.",
+     people:[
+      "Believed the faith from the beginning. Needs no reason to believe. Prays daily.",
+      "Reasoned to a view of God; depends on the mosque community for standing and livelihood.",
+      "Privately holds “no God” first, yet needs a Muslim identity for a political campaign or to get along with workplace colleagues.",
+      "Holds the faith first; calls on God mainly at funerals and in illness.",
+      "Doubted religion, then after reasoning identifies as a Muslim; prays only when in trouble or under stress.",
+      "Privately certain there is no God, yet prays when frightened.",
+      "Inherited belief, never examined, never called upon.",
+      "Reasoned away from belief; keeps the label for family and safety.",
+      "Privately certain there is no God; the label exists only on paper."
+     ]},
+    {key:"hindu", button:"Hindu", level:2,
+     title:'Nine people who all call themselves <b>Hindu</b>',
+     list:"“Hindu” placement example",
+     foot:"A Hindu can stand on any of the nine cells of the floor.",
+     people:[
+      "Believed in the gods from childhood. Daily puja, regular temple visits, and an astrologer consulted before every big decision.",
+      "Studied the Upanishads and Vedanta and reasoned to a view of Brahman. Depends on daily ritual and the temple community.",
+      "Holds “no God” without ever examining it, yet needs the Hindu identity for family standing, a marriage match and a party ticket.",
+      "Holds the faith first. Visits the temple during Durga Puja and before exams, and turns to God in illness.",
+      "Read Hindu and Western philosophy and reached a view of a higher reality. Prays only when someone in the family falls sick.",
+      "Never believed in God, yet breaks a coconut at the temple before opening a new shop.",
+      "Inherited belief and never examined it. Celebrates the festivals for the food and the family, and never calls on God.",
+      "Reasoned to disbelief, in the line of the Charvaka. Keeps the Hindu label for family and safety.",
+      "Holds “no God” first. Hindu by surname and birth certificate only."
+     ]},
+    {key:"jewish", button:"Jewish", level:3,
+     title:'Nine people who all call themselves <b>Jewish</b>',
+     list:"“Jewish” placement example",
+     foot:"A Jew can stand on any of the nine cells of the floor.",
+     people:[
+      "Raised Orthodox and holds the faith before any argument. Keeps Shabbat and kosher and prays three times a day.",
+      "Studied Torah, Talmud and philosophy and reasoned to belief. Lives by halakha and depends on the synagogue community every day.",
+      "Holds “no God” first without reasoning, yet needs the religious identity for community, marriage and burial.",
+      "Holds the faith first. Comes to synagogue on Yom Kippur and says Kaddish when a parent dies.",
+      "Reasoned to a cautious belief. Turns to prayer only in a crisis.",
+      "Never believed in God, yet asks God for help the night before surgery.",
+      "Inherited belief and never examined it. Loves the Passover seder as family tradition and never calls on God.",
+      "Reasoned away from belief. Keeps “Jewish” as a cultural and family identity and is at peace without God.",
+      "Holds “no God” first. Jewish by family and heritage only."
+     ]},
+    {key:"dont-care", button:"Don’t care about religion", level:6,
+     title:'Nine people who all say they <b>don’t care about religion</b>',
+     list:"“Don’t care” placement example",
+     foot:"A person who says they don’t care about religion can stand on any of the nine cells of the floor.",
+     people:[
+      "Says religion doesn’t interest them, yet has believed in a higher power since childhood and leans on it every day.",
+      "Thought hard about God and concluded there probably is one, but finds organized religion boring. Depends on private prayer daily.",
+      "Never thought about God and holds none, yet goes to worship with a spouse every week because the family’s social life runs through it.",
+      "Believes in a higher power out of habit and calls on it in illness.",
+      "Weighed the question once, found it unresolved and moved on. Prays when things go badly.",
+      "Never believed in God, yet prays before exams out of a habit picked up at school.",
+      "Believes in God by habit (“some higher power is watching over”), and never calls on God.",
+      "Reasoned to disbelief, then lost interest in the topic. At peace without God.",
+      "Never thought about God and has no use for God."
+     ]}
+  ];
+
+  // ---------- geometry ----------
+  var O = {x:170, y:462};      // front-left floor corner
+  var W = 140;                  // cell width along method axis
+  var D = {x:58, y:-40};        // depth step per need row
+  var WALL = 340;               // wall height
+  function lvlH(k){ return 28 + k*47; }
+  function P(m,n){ return {x:O.x + m*W + n*D.x, y:O.y + n*D.y}; }
+  function pts(a){ return a.map(function(p){return p.x.toFixed(1)+","+p.y.toFixed(1);}).join(" "); }
+  function up(p,h){ return {x:p.x, y:p.y-h}; }
+  var NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs, parent, text){
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  var FLOOR = [["#f6d3b8","#cdd9ee","#f6d3b8"],["#e4dcf0","#cdd9ee","#e4dcf0"],["#cfe9d9","#cdd9ee","#cfe9d9"]];
+
+  // ---------- state ----------
+  var svg = document.getElementById("grid");
+  var cur = null, sel = null, h = 0, anim = null;
+
+  function draw(){
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var defs = el("defs",{},svg);
+    var f = el("filter",{id:"sh",x:"-50%",y:"-50%",width:"200%",height:"200%"},defs);
+    el("feDropShadow",{dx:"0",dy:"1.5",stdDeviation:"1.6","flood-color":"#000","flood-opacity":".3"},f);
+
+    var A = P(0,0), B = P(0,3), C = P(3,3), R = P(3,0);
+    // walls
+    el("polygon",{points:pts([A,B,up(B,WALL),up(A,WALL)]),fill:"#f4f2ec",opacity:".55"},svg);
+    el("polygon",{points:pts([B,C,up(C,WALL),up(B,WALL)]),fill:"#f7f5f0",opacity:".7"},svg);
+    el("line",{x1:A.x,y1:A.y,x2:A.x,y2:A.y-WALL,stroke:"#c9c6bd"},svg);
+    el("line",{x1:B.x,y1:B.y,x2:B.x,y2:B.y-WALL,stroke:"#d6d3cb"},svg);
+    el("line",{x1:C.x,y1:C.y,x2:C.x,y2:C.y-WALL,stroke:"#d6d3cb"},svg);
+    el("line",{x1:A.x,y1:A.y-WALL,x2:B.x,y2:B.y-WALL,stroke:"#d6d3cb","stroke-dasharray":"4 4"},svg);
+    el("line",{x1:B.x,y1:B.y-WALL,x2:C.x,y2:C.y-WALL,stroke:"#d6d3cb","stroke-dasharray":"4 4"},svg);
+
+    // identity levels
+    for (var k=0;k<AXIS.length;k++){
+      var hk = lvlH(k), active = cur && cur.level===k;
+      el("line",{x1:A.x,y1:A.y-hk,x2:B.x,y2:B.y-hk,stroke:"#d2cfc6","stroke-dasharray":"4 4"},svg);
+      el("line",{x1:B.x,y1:B.y-hk,x2:C.x,y2:C.y-hk,stroke:"#d2cfc6","stroke-dasharray":"4 4"},svg);
+      el("text",{x:A.x-12,y:A.y-hk+5,"text-anchor":"end","font-size":active?"16":"15",
+        "font-weight":active?"bold":"normal",fill:active?"#1d2340":"#6c7084"},svg,AXIS[k]);
+    }
+    el("text",{x:A.x-12,y:A.y-lvlH(AXIS.length-1)-34,"text-anchor":"end","font-size":"12",
+      "letter-spacing":"2.5",fill:"#8a8d9c"},svg,"IDENTITY TAG");
+
+    // floor
+    for (var n=0;n<3;n++) for (var m=0;m<3;m++){
+      el("polygon",{points:pts([P(m,n),P(m+1,n),P(m+1,n+1),P(m,n+1)]),fill:FLOOR[n][m],stroke:"#fff","stroke-width":"3","stroke-linejoin":"round"},svg);
+    }
+    // need labels
+    for (var n2=0;n2<3;n2++){
+      var q = {x:R.x+(n2+0.5)*D.x+14, y:R.y+(n2+0.5)*D.y+5};
+      el("text",{x:q.x,y:q.y,"font-size":"15","font-weight":"bold",fill:"#1d2340"},svg,NEEDS[n2]);
+    }
+    el("text",{x:C.x-6,y:C.y-10,"text-anchor":"end","font-size":"11.5","letter-spacing":"2",fill:"#3a1d14"},svg,"NEED (LENS THREE)");
+    // method labels
+    for (var m2=0;m2<3;m2++){
+      el("text",{x:A.x+(m2+0.5)*W,y:A.y+32,"text-anchor":"middle","font-size":"16","letter-spacing":"2",
+        "font-weight":"bold",fill:m2===1?"#2f5ea8":"#b5542a"},svg,METHODS[m2].toUpperCase());
+    }
+    el("text",{x:A.x+1.5*W,y:A.y+58,"text-anchor":"middle","font-size":"11.5","letter-spacing":"2",fill:"#3a1d14"},svg,"METHOD (LENS ONE)");
+
+    if (!cur) return;
+
+    // identity plane
+    el("polygon",{points:pts([up(A,h),up(R,h),up(C,h),up(B,h)]),fill:"rgba(255,255,255,.28)",stroke:"#1d2340","stroke-width":"1.4"},svg);
+
+    // pins, back rows first
+    var order = [6,7,8,3,4,5,0,1,2];
+    order.forEach(function(i){
+      var m = i%3, n = Math.floor(i/3), c = PIN[m];
+      var base = {x:A.x+(m+0.5)*W+(n+0.5)*D.x, y:A.y+(n+0.5)*D.y};
+      var head = up(base,h);
+      var isSel = sel===i, dim = sel!==null && !isSel;
+      var g = el("g",{"class":"pin",tabindex:"0",role:"button",
+        "aria-label":"Person "+(i+1)+": "+METHODS[m]+", "+NEEDS[n]+". "+cur.people[i],
+        opacity:dim?"0.28":"1"},svg);
+      el("ellipse",{cx:base.x,cy:base.y,rx:isSel?13:9,ry:isSel?5:4,fill:c.stem,opacity:".55"},g);
+      el("line",{x1:base.x,y1:base.y,x2:head.x,y2:head.y,stroke:c.stem,"stroke-width":isSel?2.2:1.5,"stroke-dasharray":"4 3"},g);
+      var r = isSel?25:15;
+      if (isSel) el("circle",{"class":"ring",cx:head.x,cy:head.y,r:r+4,fill:"none",stroke:c.fill,"stroke-width":"3"},g);
+      el("circle",{"class":"head",cx:head.x,cy:head.y,r:r,fill:c.fill,stroke:"#fff","stroke-width":"2.2",filter:"url(#sh)"},g);
+      el("text",{x:head.x,y:head.y+(isSel?6:4.5),"text-anchor":"middle","font-size":isSel?"18":"13","font-weight":"bold",fill:c.text},g,String(i+1));
+      g.addEventListener("click",function(){ select(i); });
+      g.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){e.preventDefault();select(i);} });
+    });
+  }
+
+  function animateTo(target){
+    if (anim) cancelAnimationFrame(anim);
+    var from = h, t0 = null, dur = 650;
+    function step(ts){
+      if (t0===null) t0 = ts;
+      var t = Math.min(1,(ts-t0)/dur), e = 1-Math.pow(1-t,3);
+      h = from + (target-from)*e;
+      draw();
+      if (t<1) anim = requestAnimationFrame(step); else anim = null;
+    }
+    anim = requestAnimationFrame(step);
+  }
+
+  // ---------- UI ----------
+  var labelsBox = document.getElementById("labels");
+  var numsBox = document.getElementById("nums");
+  var list = document.getElementById("list");
+  var spot = document.getElementById("spot");
+
+  LABELS.forEach(function(L){
+    var b = document.createElement("button");
+    b.type = "button"; b.textContent = L.button; b.dataset.key = L.key;
+    b.setAttribute("aria-pressed","false");
+    b.addEventListener("click",function(){ choose(L.key, true); });
+    labelsBox.appendChild(b);
+  });
+  for (var i=0;i<9;i++){
+    (function(i){
+      var c = PIN[i%3], b = document.createElement("button");
+      b.type="button"; b.textContent = i+1; b.style.background = c.fill; b.style.color = c.text;
+      b.setAttribute("aria-label","Highlight person "+(i+1));
+      b.setAttribute("aria-pressed","false");
+      b.addEventListener("click",function(){ select(i); });
+      numsBox.appendChild(b);
+    })(i);
+  }
+  var clr = document.createElement("button");
+  clr.type="button"; clr.className="clear"; clr.textContent="Show all";
+  clr.addEventListener("click",function(){ sel=null; refresh(); });
+  numsBox.appendChild(clr);
+
+  function choose(key, push){
+    var L = LABELS.filter(function(x){return x.key===key;})[0] || LABELS[2];
+    cur = L;
+    Array.prototype.forEach.call(labelsBox.children,function(b){
+      b.setAttribute("aria-pressed", b.dataset.key===L.key ? "true":"false");
+    });
+    document.getElementById("figTitle").innerHTML = L.title;
+    document.getElementById("listTitle").textContent = L.list;
+    document.getElementById("footNote").textContent = L.foot;
+    list.innerHTML = "";
+    L.people.forEach(function(txt,i){
+      var m=i%3, n=Math.floor(i/3), c=PIN[m];
+      var li = document.createElement("li");
+      li.className="card"; li.tabIndex=0; li.dataset.i=i;
+      li.innerHTML = '<span class="badge" style="background:'+c.fill+';color:'+c.text+'">'+(i+1)+'</span>'+
+        '<span><span class="cell">'+METHODS[m]+' · '+NEEDS[n]+'</span>'+txt+'</span>';
+      li.addEventListener("click",function(){ select(i); });
+      li.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){e.preventDefault();select(i);} });
+      list.appendChild(li);
+    });
+    if (push && history.replaceState) history.replaceState(null,"","#"+L.key);
+    refresh(true);
+    animateTo(lvlH(L.level));
+  }
+
+  function select(i){
+    sel = (sel===i) ? null : i;
+    refresh();
+  }
+
+  function refresh(skipDraw){
+    Array.prototype.forEach.call(numsBox.querySelectorAll("button:not(.clear)"),function(b,i){
+      b.setAttribute("aria-pressed", sel===i ? "true":"false");
+      b.style.opacity = (sel!==null && sel!==i) ? ".45" : "1";
+    });
+    list.classList.toggle("has-sel", sel!==null);
+    Array.prototype.forEach.call(list.children,function(li,i){ li.classList.toggle("sel", sel===i); });
+    if (sel!==null && cur){
+      var m=sel%3, n=Math.floor(sel/3);
+      spot.style.borderLeftColor = PIN[m].fill;
+      spot.innerHTML = '<span class="cell">Person '+(sel+1)+' · '+METHODS[m]+' · '+NEEDS[n]+'</span>'+cur.people[sel];
+      spot.classList.add("show");
+    } else {
+      spot.classList.remove("show"); spot.innerHTML="";
+    }
+    if (!skipDraw) draw();
+  }
+
+  var start = (location.hash||"").replace("#","");
+  choose(LABELS.some(function(L){return L.key===start;}) ? start : "christian", false);
+})();
+</script>
+</body>
+</html>
